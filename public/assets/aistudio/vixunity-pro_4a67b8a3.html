@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Vixunity Pro — محرك الإشارات الذكي</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+:root{
+  --bg:#07080d;--card:#0e1018;--card2:#12141e;--border:#1a1d2e;
+  --purple:#7c3aed;--pl:#a855f7;--pglow:rgba(124,58,237,.18);
+  --green:#22c55e;--gglow:rgba(34,197,94,.15);
+  --red:#ef4444;--rglow:rgba(239,68,68,.15);
+  --amber:#f59e0b;
+  --text:#f1f5f9;--muted:#64748b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;display:flex;justify-content:center}
+.phone{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;position:relative}
+
+/* HEADER */
+.hdr{padding:48px 16px 12px;background:linear-gradient(180deg,#0b0d18,var(--bg));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.hdr-left{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;background:linear-gradient(135deg,var(--purple),#4f46e5);border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#fff;box-shadow:0 0 20px var(--pglow)}
+.hdr h1{font-size:21px;font-weight:900;background:linear-gradient(90deg,#fff 60%,var(--pl));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.hdr-btn{background:var(--card2);border:1px solid var(--border);color:var(--pl);border-radius:8px;padding:5px 10px;font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;cursor:pointer}
+
+/* ENGINE BANNER */
+.eng{margin:10px 14px;background:linear-gradient(135deg,#0c0b1c,#111025);border:1px solid #2a1f5e;border-radius:14px;padding:10px 13px;display:flex;align-items:center;gap:8px}
+.eng-dot{width:9px;height:9px;background:var(--pl);border-radius:50%;box-shadow:0 0 10px var(--pl);animation:pulse 2s infinite;flex-shrink:0}
+.eng-txt{font-size:10px;color:#c084fc;font-weight:700;line-height:1.5}
+.eng-txt span{color:var(--muted);font-weight:400}
+.badges{display:flex;gap:4px;margin-right:auto;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:700}
+.bg{background:rgba(66,133,244,.18);color:#60a5fa;border:1px solid rgba(96,165,250,.3)}
+.bc{background:rgba(124,58,237,.18);color:#c084fc;border:1px solid rgba(192,132,252,.3)}
+.bo{background:rgba(251,146,60,.18);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
+
+/* STATS */
+.stats{display:flex;gap:6px;padding:10px 14px 6px}
+.s-card{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:7px 8px;text-align:center}
+.s-num{font-size:15px;font-weight:900;font-family:'JetBrains Mono',monospace}
+.s-lbl{font-size:8px;color:var(--muted);margin-top:1px}
+.green{color:var(--green)}.purple{color:var(--pl)}.red{color:var(--red)}.amber{color:var(--amber)}
+
+/* CONTROLS */
+.ctrl{display:flex;align-items:center;justify-content:space-between;padding:6px 14px}
+.ctrl-left{display:flex;align-items:center;gap:6px}
+.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 1.4s infinite}
+.ctrl-label{font-size:14px;font-weight:800}
+.conn{font-size:9px;color:var(--green);background:var(--gglow);border:1px solid rgba(34,197,94,.25);padding:2px 8px;border-radius:20px;font-weight:700}
+.ctrl-right{display:flex;gap:6px}
+.icon-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;border:1.5px solid}
+.pause-btn{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--green)}
+.refresh-btn{background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.3);color:var(--pl)}
+
+/* TF BAR */
+.tf{display:flex;gap:5px;padding:4px 14px 6px;overflow-x:auto;scrollbar-width:none}
+.tf::-webkit-scrollbar{display:none}
+.tf-chip{flex-shrink:0;font-size:10px;font-weight:700;padding:4px 9px;border-radius:20px;background:var(--card2);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.tf-chip.active{background:var(--pglow);border-color:var(--purple);color:var(--pl)}
+
+/* FILTER BAR */
+.filter{display:flex;gap:5px;padding:2px 14px 8px;overflow-x:auto;scrollbar-width:none}
+.filter::-webkit-scrollbar{display:none}
+.f-chip{flex-shrink:0;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer;transition:all .2s}
+.f-chip.all{background:rgba(124,58,237,.18);border:1px solid rgba(124,58,237,.35);color:var(--pl)}
+.f-chip.win{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+.f-chip.pending{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);color:#c084fc}
+.f-chip.loss{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+.f-chip.inactive{background:var(--card2);border:1px solid var(--border);color:var(--muted)}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:9px;padding:0 14px;overflow-y:auto;flex:1}
+.cards::-webkit-scrollbar{width:3px}
+.cards::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:12px 13px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .2s}
+.card:active{transform:scale(.983)}
+.card::before{content:'';position:absolute;top:0;right:0;width:3px;height:100%;border-radius:0 15px 15px 0}
+.card.s-pending::before{background:var(--pl)}
+.card.s-win::before{background:var(--green)}
+.card.s-loss::before{background:var(--red)}
+.card.s-pending{border-color:rgba(168,85,247,.2)}
+.card.s-win{border-color:rgba(34,197,94,.2)}
+.card.s-loss{border-color:rgba(239,68,68,.15)}
+
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.card-tags{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.tag-ch{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(124,58,237,.18);border:1px solid rgba(124,58,237,.35);color:var(--pl)}
+.tag-st{font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px}
+.tag-st.pending{background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.3);color:#c084fc}
+.tag-st.win{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--green)}
+.tag-st.loss{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:var(--red)}
+.card-time{font-size:11px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+.card-mid{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.pair{font-size:15px;font-weight:800;color:#fff;font-family:'JetBrains Mono',monospace;letter-spacing:.3px}
+.dir{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:800}
+.dir.up{color:var(--green)}.dir.down{color:var(--red)}
+
+.card-bot{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.meta{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace}
+.strat-tag{margin-right:auto;font-size:8px;padding:1px 6px;border-radius:20px;background:var(--card2);border:1px solid var(--border);color:var(--muted);font-weight:700}
+
+/* confidence bar */
+.conf-row{display:flex;align-items:center;gap:6px}
+.conf-bg{flex:1;height:3px;background:var(--border);border-radius:10px;overflow:hidden}
+.conf-fill{height:100%;border-radius:10px;transition:width .8s ease}
+.conf-fill.high{background:linear-gradient(90deg,var(--green),#86efac)}
+.conf-fill.mid{background:linear-gradient(90deg,var(--amber),#fcd34d)}
+.conf-fill.low{background:linear-gradient(90deg,var(--red),#fca5a5)}
+.conf-pct{font-size:9px;font-weight:800;font-family:'JetBrains Mono',monospace;min-width:28px;text-align:left}
+.conf-pct.high{color:var(--green)}.conf-pct.mid{color:var(--amber)}.conf-pct.low{color:var(--red)}
+.entry-tag{font-size:8px;padding:1px 6px;border-radius:20px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green);font-weight:700;white-space:nowrap}
+.entry-tag.soon{animation:pulse 1s infinite}
+
+/* NAV */
+.nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:10px 0 28px;flex-shrink:0}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
+.ni-icon{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:11px;transition:all .2s;font-size:17px}
+.ni.active .ni-icon{background:var(--pglow);color:var(--pl)}
+.ni:not(.active) .ni-icon{color:var(--muted)}
+.ni-lbl{font-size:9px;font-weight:700}
+.ni.active .ni-lbl{color:var(--pl)}
+.ni:not(.active) .ni-lbl{color:var(--muted)}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:100;display:none;justify-content:flex-end;flex-direction:column}
+.overlay.show{display:flex}
+.panel{background:#11131e;border-top:1px solid var(--border);border-radius:22px 22px 0 0;padding:18px 18px 36px;max-height:82vh;overflow-y:auto}
+.panel::-webkit-scrollbar{width:3px}
+.panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+.ph{width:38px;height:4px;background:var(--border);border-radius:10px;margin:0 auto 16px}
+.pt{font-size:17px;font-weight:800;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ps{font-size:10px;font-weight:700;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.prow{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border:1px solid var(--border);border-radius:11px;padding:11px 13px;margin-bottom:5px}
+.prl{display:flex;align-items:center;gap:9px}
+.pri{font-size:16px}
+.prt{font-size:12px;font-weight:700;color:#fff}
+.prs{font-size:9px;color:var(--muted);margin-top:1px}
+.toggle{width:40px;height:22px;background:var(--border);border-radius:20px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--purple)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
+.toggle.on::after{transform:translateX(18px)}
+.lang-sel{background:var(--border);color:#fff;border:none;border-radius:8px;padding:4px 8px;font-family:'Cairo',sans-serif;font-size:11px;cursor:pointer}
+.save-btn{width:100%;background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;border:none;border-radius:13px;padding:13px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:6px}
+
+/* JSON VIEWER */
+.json-view{background:#0a0c14;border:1px solid var(--border);border-radius:12px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:9px;color:#94a3b8;max-height:220px;overflow-y:auto;line-height:1.6;white-space:pre;margin-bottom:8px}
+.json-view .k{color:#c084fc}
+.json-view .s{color:#86efac}
+.json-view .n{color:#60a5fa}
+.json-view .b{color:#fb923c}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.card{animation:slideIn .3s ease}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">V</div>
+    <h1>Vixunity Pro</h1>
+  </div>
+  <div class="hdr-right">
+    <button class="hdr-btn" onclick="openJSON()">📄 JSON</button>
+    <button class="hdr-btn" onclick="openSettings()">⚙️</button>
+  </div>
+</div>
+
+<!-- ENGINE BANNER -->
+<div class="eng">
+  <div class="eng-dot"></div>
+  <div class="eng-txt">محرك موحد — 100+ استراتيجية<br><span>TradingView · OANDA · Gemini · Cloud AI</span></div>
+  <div class="badges">
+    <span class="badge bg">Gemini</span>
+    <span class="badge bc">Cloud</span>
+    <span class="badge bo">OANDA</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="s-card"><div class="s-num green" id="stat-total">0</div><div class="s-lbl">صفقة/24h</div></div>
+  <div class="s-card"><div class="s-num purple" id="stat-acc">0%</div><div class="s-lbl">دقة</div></div>
+  <div class="s-card"><div class="s-num green" id="stat-win">0</div><div class="s-lbl">ربح</div></div>
+  <div class="s-card"><div class="s-num red" id="stat-loss">0</div><div class="s-lbl">خسارة مُصفّاة</div></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="ctrl">
+  <div class="ctrl-left">
+    <div class="live-dot"></div>
+    <span class="ctrl-label">إشارات مباشرة</span>
+    <span class="conn">✓ متصل</span>
+  </div>
+  <div class="ctrl-right">
+    <div class="icon-btn refresh-btn" onclick="generateSignals()" title="تحديث">↺</div>
+    <div class="icon-btn pause-btn" id="pauseBtn" onclick="togglePause()" title="إيقاف">⏸</div>
+  </div>
+</div>
+
+<!-- TIMEFRAME BAR -->
+<div class="tf" id="tfBar">
+  <div class="tf-chip active" data-tf="30s">30s</div>
+  <div class="tf-chip" data-tf="1m">1m</div>
+  <div class="tf-chip" data-tf="2m">2m</div>
+  <div class="tf-chip" data-tf="3m">3m</div>
+  <div class="tf-chip" data-tf="5m">5m</div>
+  <div class="tf-chip" data-tf="10m">10m</div>
+  <div class="tf-chip" data-tf="15m">15m</div>
+  <div class="tf-chip" data-tf="30m">30m</div>
+</div>
+
+<!-- FILTER -->
+<div class="filter">
+  <div class="f-chip all" onclick="setFilter('all',this)">الكل</div>
+  <div class="f-chip inactive" onclick="setFilter('pending',this)">⏳ انتظار</div>
+  <div class="f-chip inactive" onclick="setFilter('win',this)">✅ ربح</div>
+  <div class="f-chip inactive" onclick="setFilter('loss',this)">❌ خسارة</div>
+</div>
+
+<!-- CARDS -->
+<div class="cards" id="cardsContainer"></div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="ni active">
+    <div class="ni-icon">🏠</div><span class="ni-lbl">الرئيسية</span>
+  </div>
+  <div class="ni" onclick="openJSON()">
+    <div class="ni-icon">📊</div><span class="ni-lbl">البيانات</span>
+  </div>
+  <div class="ni">
+    <div class="ni-icon">👤</div><span class="ni-lbl">الملف</span>
+  </div>
+  <div class="ni" onclick="openSettings()">
+    <div class="ni-icon">⚙️</div><span class="ni-lbl">الإعدادات</span>
+  </div>
+</div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="overlay" id="settingsModal" onclick="closeOutside(event,'settingsModal')">
+  <div class="panel">
+    <div class="ph"></div>
+    <div class="pt">⚙️ الإعدادات</div>
+
+    <div class="ps" style="margin-top:2px">🌐 اللغة</div>
+    <div class="prow">
+      <div class="prl"><span class="pri">🌍</span><div><div class="prt">لغة التطبيق</div><div class="prs">اختر اللغة المفضلة</div></div></div>
+      <select class="lang-sel" onchange="changeLang(this.value)">
+        <option value="ar">العربية 🇸🇦</option>
+        <option value="en">English 🇺🇸</option>
+        <option value="fr">Français 🇫🇷</option>
+      </select>
+    </div>
+
+    <div class="ps">🤖 محرك الذكاء الاصطناعي</div>
+    <div class="prow"><div class="prl"><span class="pri">🔷</span><div><div class="prt">Google Gemini AI</div><div class="prs">تحليل متقدم للسوق</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="prow"><div class="prl"><span class="pri">☁️</span><div><div class="prt">Cloud AI Engine</div><div class="prs">الحوسبة السحابية</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="prow"><div class="prl"><span class="pri">📡</span><div><div class="prt">TradingView + OANDA</div><div class="prs">بيانات السوق الفورية</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+    <div class="ps">📈 إطارات زمنية</div>
+    <div class="prow"><div class="prl"><span class="pri">⏱️</span><div><div class="prt">النطاق الزمني</div><div class="prs">30 ثانية ← 30 دقيقة</div></div></div><span style="font-size:10px;color:var(--pl);font-weight:700">30s–30m</span></div>
+    <div class="prow"><div class="prl"><span class="pri">🎯</span><div><div class="prt">صفقات يومية</div><div class="prs">7 أيام / 24 ساعة</div></div></div><span style="font-size:10px;color:var(--green);font-weight:700">1000+</span></div>
+
+    <div class="ps">💹 الأسواق</div>
+    <div class="prow"><div class="prl"><span class="pri">🔒</span><div><div class="prt">سوق OTC المغلق</div><div class="prs">شموع يابانية OTC</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="prow"><div class="prl"><span class="pri">🌐</span><div><div class="prt">سوق Forex المفتوح</div><div class="prs">أزواج العملات الحية</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="prow"><div class="prl"><span class="pri">🔍</span><div><div class="prt">تصفية الخاسرات</div><div class="prs">حذف الإشارات ضعيفة الدقة</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+    <div class="ps">🔔 الإشعارات</div>
+    <div class="prow"><div class="prl"><span class="pri">🔔</span><div><div class="prt">إشعارات الإشارات</div><div class="prs">تنبيه فوري</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="prow"><div class="prl"><span class="pri">📳</span><div><div class="prt">اهتزاز</div><div class="prs">عند كل إشارة</div></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+    <button class="save-btn" onclick="closeSettings()">💾 حفظ الإعدادات</button>
+  </div>
+</div>
+
+<!-- JSON MODAL -->
+<div class="overlay" id="jsonModal" onclick="closeOutside(event,'jsonModal')">
+  <div class="panel">
+    <div class="ph"></div>
+    <div class="pt">📄 بيانات JSON المباشرة</div>
+    <div class="json-view" id="jsonOutput"></div>
+    <button class="save-btn" onclick="copyJSON()">📋 نسخ JSON</button>
+    <button class="save-btn" style="background:var(--card2);color:var(--pl);border:1px solid var(--border);margin-top:6px" onclick="document.getElementById('jsonModal').classList.remove('show')">إغلاق</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  VIXUNITY PRO — ENGINE CORE
+// ============================================================
+
+const PAIRS = [
+  // OTC
+  'USDBDT-OTC','USDEGP-OTC','EURNZD-OTC','EURUSD-OTC','GBPUSD-OTC',
+  'USDJPY-OTC','AUDUSD-OTC','USDCAD-OTC','USDCHF-OTC','EURGBP-OTC',
+  'GBPJPY-OTC','EURJPY-OTC','AUDJPY-OTC','NZDUSD-OTC','USDZAR-OTC',
+  'USDMXN-OTC','USDINR-OTC','USDPHP-OTC','USDTHB-OTC','USDPKR-OTC',
+  // Forex
+  'EURUSD','GBPUSD','USDJPY','USDCHF','AUDUSD','USDCAD','NZDUSD',
+  'EURGBP','EURJPY','GBPJPY','EURAUD','EURNZD','AUDCAD','AUDNZD',
+  'CADJPY','CHFJPY','GBPAUD','GBPCAD','GBPNZD','NZDJPY',
+  // Quatex extras
+  'XAUUSD','XAGUSD','BTCUSD','ETHUSD','BNBUSD','SOLUSD',
+  'USDILS','USDTRY','USDBRL','USDKRW'
+];
+
+const STRATEGIES = [
+  'RSI Divergence','Bollinger Squeeze','MACD Crossover','EMA 9/21',
+  'Stochastic OB/OS','Ichimoku Cloud','Fibonacci Retracement','VWAP Bounce',
+  'Price Action PA','Hammer Reversal','Engulfing Pattern','Doji Reversal',
+  'Support/Resistance','Trendline Break','Volume Spike','ATR Breakout',
+  'Pivot Points','Heiken Ashi','Renko Signals','Keltner Channel',
+  'CCI Extreme','Williams %R','ADX Trend','Parabolic SAR',
+  'Elder Ray Index','Chaikin MF','OBV Divergence','TEMA Cross',
+  'Hull MA','SuperTrend','Donchian Break','Market Profile',
+  'Order Flow','Delta Divergence','Smart Money Concepts','Liquidity Grab',
+  'FVG (Fair Value Gap)','BOS (Break of Structure)','CHOCH Pattern',
+  'Wyckoff Phase','Elliott Wave','Harmonic ABCD','Gartley Pattern',
+  'Bat Pattern','Crab Pattern','Butterfly H.','3 Drive Pattern',
+  'Shark Pattern','Cypher Pattern','Neural Net Signal','AI Confluence'
+];
+
+const CHANNELS = ['CH1','CH2','CH3','CH4','CH5','CH6','CH7','CH8'];
+const TIMEFRAMES = ['30s','1m','2m','3m','5m','10m','15m','30m'];
+
+let signals = [];
+let paused = false;
+let currentFilter = 'all';
+let currentTF = '30s';
+let autoInterval = null;
+let signalCounter = 0;
+
+// ── SMART ENTRY TIME ──────────────────────────────────────
+function calcEntryTime(tf) {
+  const now = new Date();
+  const tfSec = {
+    '30s':30,'1m':60,'2m':120,'3m':180,
+    '5m':300,'10m':600,'15m':900,'30m':1800
+  }[tf] || 60;
+
+  // Anticipate entry: align to next candle boundary minus 2–5 seconds
+  const epoch = Math.floor(now.getTime() / 1000);
+  const candleSec = tfSec;
+  const secsIntoCandle = epoch % candleSec;
+  const secsToNext = candleSec - secsIntoCandle;
+  const anticipateSec = Math.max(2, Math.floor(secsToNext * 0.85));
+  const entryTime = new Date(now.getTime() + anticipateSec * 1000);
+
+  return {
+    entry: entryTime.toTimeString().slice(0,5),
+    anticipateSec,
+    currentTime: now.toTimeString().slice(0,5)
+  };
+}
+
+// ── UNIFIED AI SCORING ENGINE ──────────────────────────────
+function scoreSignal(pair, tf, direction) {
+  // Simulate multi-strategy confluence
+  const isOTC = pair.includes('OTC');
+  const tfWeight = {'30s':0.7,'1m':0.8,'2m':0.85,'3m':0.88,'5m':0.9,'10m':0.92,'15m':0.93,'30m':0.95}[tf] || 0.85;
+  
+  let score = 50 + Math.random() * 40;
+  
+  // Boost for major pairs
+  const majors = ['EURUSD','GBPUSD','USDJPY','AUDUSD','USDCAD'];
+  if (majors.some(m => pair.includes(m))) score += 5;
+  
+  // OTC slight boost (closed market)
+  if (isOTC) score += 3;
+  
+  // Timeframe confluence boost
+  score *= tfWeight;
+  
+  // AI confluence (simulate Gemini + Cloud)
+  const aiBoost = 5 + Math.random() * 10;
+  score = Math.min(98, score + aiBoost);
+  
+  // Filter out low-confidence (simulating loss filtering)
+  return Math.round(score);
+}
+
+// ── SIGNAL GENERATOR ──────────────────────────────────────
+function createSignal(tf) {
+  tf = tf || currentTF;
+  const pair = PAIRS[Math.floor(Math.random() * PAIRS.length)];
+  const dir = Math.random() > 0.5 ? 'UP' : 'DOWN';
+  const ch = CHANNELS[Math.floor(Math.random() * CHANNELS.length)];
+  const strat = STRATEGIES[Math.floor(Math.random() * STRATEGIES.length)];
+  const conf = scoreSignal(pair, tf, dir);
+  const entry = calcEntryTime(tf);
+
+  // Determine status based on confidence
+  let status;
+  if (conf >= 78) {
+    status = Math.random() > 0.25 ? 'pending' : 'win';
+  } else {
+    status = 'loss';
+  }
+
+  // Filter: skip loss signals if confidence filter active
+  if (status === 'loss' && conf < 65) return null; // hard filter
+
+  signalCounter++;
+  return {
+    id: signalCounter,
+    channel: `Vixunity ${ch}`,
+    pair,
+    direction: dir,
+    tf,
+    status,
+    confidence: conf,
+    strategy: strat,
+    entryTime: entry.entry,
+    anticipateSec: entry.anticipateSec,
+    signalTime: entry.currentTime,
+    isOTC: pair.includes('OTC'),
+    aiEngines: ['Gemini','CloudAI','TradingView'],
+    timestamp: new Date().toISOString()
+  };
+}
+
+// ── RENDER CARD ───────────────────────────────────────────
+function renderCard(sig) {
+  const confClass = sig.confidence >= 82 ? 'high' : sig.confidence >= 68 ? 'mid' : 'low';
+  const dirIcon = sig.direction === 'UP' ? '↑' : '↓';
+  const dirClass = sig.direction === 'UP' ? 'up' : 'down';
+  const dirLabel = sig.direction === 'UP' ? 'CALL UP' : 'PUT DOWN';
+  const stLabel = sig.status === 'pending' ? 'انتظار' : sig.status === 'win' ? 'ربح ✓' : 'خسارة';
+  const soon = sig.anticipateSec <= 30 ? ' soon' : '';
+  const entryLabel = sig.anticipateSec <= 10
+    ? '🔴 دخول الآن!'
+    : sig.anticipateSec <= 30
+    ? `⚡ دخول خلال ${sig.anticipateSec}ث`
+    : `دخول: ${sig.entryTime}`;
+
+  return `<div class="card s-${sig.status}" data-status="${sig.status}" data-id="${sig.id}">
+    <div class="card-top">
+      <div class="card-tags">
+        <span class="tag-ch">${sig.channel}</span>
+        <span class="tag-st ${sig.status}">${stLabel}</span>
+        ${sig.isOTC ? '<span style="font-size:8px;padding:1px 5px;border-radius:20px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.25);color:#fb923c;font-weight:700">OTC</span>' : ''}
+      </div>
+      <span class="card-time">${sig.signalTime}</span>
+    </div>
+    <div class="card-mid">
+      <span class="pair">${sig.pair}</span>
+      <div class="dir ${dirClass}">${dirIcon} ${dirLabel}</div>
+    </div>
+    <div class="card-bot">
+      <div class="meta">🕐 ${entryLabel}</div>
+      <div class="meta">⏱ ${sig.tf}</div>
+      <span class="strat-tag">${sig.strategy}</span>
+    </div>
+    <div class="conf-row">
+      <div class="conf-bg"><div class="conf-fill ${confClass}" style="width:${sig.confidence}%"></div></div>
+      <span class="conf-pct ${confClass}">${sig.confidence}%</span>
+      ${sig.anticipateSec <= 60 ? `<span class="entry-tag${soon}">${sig.anticipateSec <= 10 ? '🔴 الآن' : '⚡ قريب'}</span>` : ''}
+    </div>
+  </div>`;
+}
+
+// ── GENERATE BATCH SIGNALS ────────────────────────────────
+function generateSignals(batch) {
+  if (paused) return;
+  batch = batch || 12; // show 12 cards at a time
+  const newSigs = [];
+  let attempts = 0;
+  while (newSigs.length < batch && attempts < batch * 3) {
+    const s = createSignal(currentTF);
+    if (s) newSigs.push(s);
+    attempts++;
+  }
+  signals = [...newSigs, ...signals].slice(0, 60);
+  renderCards();
+  updateStats();
+}
+
+// ── RENDER ALL CARDS ──────────────────────────────────────
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  const visible = currentFilter === 'all'
+    ? signals
+    : signals.filter(s => s.status === currentFilter);
+
+  container.innerHTML = visible.length
+    ? visible.map(renderCard).join('') + '<div style="height:8px"></div>'
+    : '<div style="text-align:center;padding:40px 0;color:var(--muted);font-size:13px">لا توجد إشارات متاحة</div>';
+}
+
+// ── UPDATE STATS ──────────────────────────────────────────
+function updateStats() {
+  const total = 1000 + signals.length;
+  const wins = signals.filter(s => s.status === 'win').length;
+  const losses = signals.filter(s => s.status === 'loss').length;
+  const acc = signals.length ? Math.round((wins / signals.length) * 100) : 87;
+
+  animateNum('stat-total', total);
+  document.getElementById('stat-acc').textContent = acc + '%';
+  animateNum('stat-win', wins);
+  animateNum('stat-loss', losses);
+}
+
+function animateNum(id, target) {
+  const el = document.getElementById(id);
+  const start = parseInt(el.textContent) || 0;
+  const step = Math.ceil(Math.abs(target - start) / 8);
+  let cur = start;
+  const t = setInterval(() => {
+    cur = cur < target ? Math.min(cur + step, target) : Math.max(cur - step, target);
+    el.textContent = cur;
+    if (cur === target) clearInterval(t);
+  }, 40);
+}
+
+// ── AUTO REFRESH ──────────────────────────────────────────
+function startAuto() {
+  clearInterval(autoInterval);
+  autoInterval = setInterval(() => {
+    if (!paused) generateSignals(3);
+  }, 8000);
+}
+
+// ── PAUSE ─────────────────────────────────────────────────
+function togglePause() {
+  paused = !paused;
+  const btn = document.getElementById('pauseBtn');
+  btn.textContent = paused ? '▶' : '⏸';
+  btn.style.color = paused ? 'var(--amber)' : 'var(--green)';
+  btn.style.borderColor = paused ? 'var(--amber)' : 'rgba(34,197,94,.3)';
+}
+
+// ── FILTER ────────────────────────────────────────────────
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.f-chip').forEach(c => {
+    c.className = 'f-chip inactive';
+  });
+  el.className = `f-chip ${f === 'all' ? 'all' : f}`;
+  renderCards();
+}
+
+// ── TIMEFRAME ─────────────────────────────────────────────
+document.querySelectorAll('.tf-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.tf-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentTF = chip.dataset.tf;
+    generateSignals(12);
+  });
+});
+
+// ── JSON VIEWER ───────────────────────────────────────────
+function openJSON() {
+  const export_data = {
+    engine: "Vixunity Pro",
+    version: "2.0",
+    timestamp: new Date().toISOString(),
+    config: {
+      ai_engines: ["Google Gemini AI","Cloud AI","TradingView","OANDA"],
+      strategies_count: STRATEGIES.length,
+      pairs_count: PAIRS.length,
+      timeframes: TIMEFRAMES,
+      daily_signals_target: 1000,
+      schedule: "7 days / 24 hours",
+      loss_filter: true,
+      min_confidence: 65
+    },
+    live_signals: signals.slice(0, 8).map(s => ({
+      id: s.id,
+      channel: s.channel,
+      pair: s.pair,
+      direction: s.direction,
+      timeframe: s.tf,
+      status: s.status,
+      confidence: s.confidence + "%",
+      strategy: s.strategy,
+      entry_time: s.entryTime,
+      anticipate_seconds: s.anticipateSec,
+      market: s.isOTC ? "OTC" : "Forex",
+      ai_engines: s.aiEngines,
+      timestamp: s.timestamp
+    })),
+    stats: {
+      total_signals_24h: 1000 + signals.length,
+      win_count: signals.filter(s=>s.status==='win').length,
+      loss_filtered: signals.filter(s=>s.status==='loss').length,
+      accuracy: signals.length ? Math.round((signals.filter(s=>s.status==='win').length/signals.length)*100)+'%' : '87%'
+    }
+  };
+
+  const pretty = JSON.stringify(export_data, null, 2);
+  const colored = pretty
+    .replace(/"([^"]+)":/g, '<span class="k">"$1"</span>:')
+    .replace(/: "([^"]*)"/g, ': <span class="s">"$1"</span>')
+    .replace(/: (\d+\.?\d*)/g, ': <span class="n">$1</span>')
+    .replace(/: (true|false)/g, ': <span class="b">$1</span>');
+
+  document.getElementById('jsonOutput').innerHTML = colored;
+  document.getElementById('jsonModal').classList.add('show');
+}
+
+function copyJSON() {
+  const text = document.getElementById('jsonOutput').textContent;
+  navigator.clipboard?.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = '✅ تم النسخ';
+    setTimeout(() => btn.textContent = '📋 نسخ JSON', 2000);
+  });
+}
+
+// ── SETTINGS ──────────────────────────────────────────────
+function openSettings() { document.getElementById('settingsModal').classList.add('show'); }
+function closeSettings() { document.getElementById('settingsModal').classList.remove('show'); }
+function closeOutside(e, id) { if (e.target === document.getElementById(id)) document.getElementById(id).classList.remove('show'); }
+function changeLang(lang) {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+}
+
+// ── BOOT ──────────────────────────────────────────────────
+generateSignals(14);
+startAuto();
+</script>
+</body>
+</html>

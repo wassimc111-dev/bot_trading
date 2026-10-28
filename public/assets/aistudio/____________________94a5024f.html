@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMC Signal AI Bot: Smart Money Signals | Auto Trading Bots</title>
+<meta name="description" content="SMC Signal AI Bot reads the broker, market, pair and expiry you set and answers CALL, PUT or WAIT with an entry time and a close.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#031833">
+<link rel="canonical" href="https://autotradingbots.ai/smc-signal-ai-bot">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Auto Trading Bots">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://autotradingbots.ai/smc-signal-ai-bot">
+<meta property="og:title" content="SMC Signal AI Bot: Smart Money Signals | Auto Trading Bots">
+<meta property="og:description" content="SMC Signal AI Bot reads the broker, market, pair and expiry you set and answers CALL, PUT or WAIT with an entry time and a close.">
+<meta property="og:image" content="https://autotradingbots.ai/media/smc-signal-ai-bot.webp">
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SMC Signal AI Bot: Smart Money Signals | Auto Trading Bots">
+<meta name="twitter:description" content="SMC Signal AI Bot reads the broker, market, pair and expiry you set and answers CALL, PUT or WAIT with an entry time and a close.">
+<meta name="twitter:image" content="https://autotradingbots.ai/media/smc-signal-ai-bot.webp">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23005ec7'/%3E%3Cstop offset='1' stop-color='%23a200ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M20 42l8-12 7 7 9-15' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://autotradingbots.ai/#organization","name":"Auto Trading Bots","url":"https://autotradingbots.ai/","email":"info@autotradingbots.ai","telephone":"+971527805973","address":{"@type":"PostalAddress","streetAddress":"Joory Street, Jumeirah Village Triangle, District 3","addressLocality":"Dubai","addressCountry":"AE"}},{"@type":"WebSite","@id":"https://autotradingbots.ai/#website","url":"https://autotradingbots.ai/","name":"Auto Trading Bots","inLanguage":"en"},{"@type":"SoftwareApplication","@id":"https://autotradingbots.ai/smc-signal-ai-bot#app","name":"SMC Signal AI Bot","applicationCategory":"FinanceApplication","operatingSystem":"Web browser","offers":[{"@type":"Offer","name":"Monthly","price":"49","priceCurrency":"USD"},{"@type":"Offer","name":"Free access (with a partner broker account)","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Lifetime","price":"199","priceCurrency":"USD"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is SMC Signal AI Bot?","acceptedAnswer":{"@type":"Answer","text":"A signal bot for binary options. You set a broker, a market, a pair and an expiry, tap Get signal, and one card answers CALL, PUT or WAIT for that candle, with an agreement meter, the entry time and the close. It is not a broker, and it never holds your money."}},{"@type":"Question","name":"What does SMC stand for?","acceptedAnswer":{"@type":"Answer","text":"Smart money concepts: a way of reading a chart through liquidity, order blocks and shifts in structure. The name tells you who the bot is for. The bot itself does not mark any of those levels on your chart."}},{"@type":"Question","name":"Which brokers does it work with?","acceptedAnswer":{"@type":"Answer","text":"Pocket Option, Quotex, IQ Option, Olymp Trade, Binomo, Exnova, Bubinga, Deriv and Alpari. Set yours in the Broker listbox and every signal carries its name."}},{"@type":"Question","name":"Do I have to type anything?","acceptedAnswer":{"@type":"Answer","text":"No. Every answer is a listbox or a key: the broker, the market, the pair and the expiry. There is no text box and no command to remember."}},{"@type":"Question","name":"What do CALL, PUT and WAIT mean?","acceptedAnswer":{"@type":"Answer","text":"CALL means the read expects the candle to close above its open, so buy up. PUT expects it below, so buy down. WAIT means trend and momentum disagree, and skipping the candle is the answer."}},{"@type":"Question","name":"What is the agreement meter?","acceptedAnswer":{"@type":"Answer","text":"How firmly the three inputs behind a signal line up. A fuller meter is a cleaner read. It is not the chance the trade wins, so size every trade as if it could lose."}},{"@type":"Question","name":"Why does the card sometimes wait before the entry?","acceptedAnswer":{"@type":"Answer","text":"On expiries under an hour, when less than half of the current candle is left, the bot reads the next candle and counts down to its open. Joining a candle half way is a different trade from the one that was read."}},{"@type":"Question","name":"Can I use it at the weekend?","acceptedAnswer":{"@type":"Answer","text":"Yes, on OTC. The real market closes from Friday 21:00 to Sunday 21:00 UTC, so the bot keeps OTC chosen until the market reopens."}},{"@type":"Question","name":"Which expiries are free?","acceptedAnswer":{"@type":"Answer","text":"4h and 1d on most brokers, 1h on IQ Option and 23h on Olymp Trade. The faster ones open with free access through a partner broker, or a $49 monthly or $199 lifetime plan."}},{"@type":"Question","name":"Does it publish a win rate?","acceptedAnswer":{"@type":"Answer","text":"No. The bot never sees how your trade closed, and results change with the pair, the expiry and the market. Check each signal on your broker's chart and keep your own record."}},{"@type":"Question","name":"Is it risky?","acceptedAnswer":{"@type":"Answer","text":"Yes. A short-expiry trade can lose the whole stake, and a signal is not advice. Only trade money you can afford to lose, and read the Risk warning."}}]}]}</script>
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+@font-face{
+  font-family:Inter Fallback;
+  src:local("Arial"),local("Liberation Sans"),local("Arimo"),local("Helvetica");
+  size-adjust:107.6%;ascent-override:90.1%;descent-override:22.4%;line-gap-override:0%;
+}
+:root{
+  --white:#ffffff;
+  --white-a07:rgb(255 255 255 / .07);
+  --white-a10:rgb(255 255 255 / .1);
+  --white-a14:rgb(255 255 255 / .14);
+  --white-a20:rgb(255 255 255 / .2);
+  --white-a30:rgb(255 255 255 / .3);
+  --white-a78:rgb(255 255 255 / .78);
+  --blue-500:#0088ff;
+  --blue-700:#005ec7;
+  --blue-700-a85:rgb(0 94 199 / .85);
+  --violet-500:#a200ff;
+  --violet-500-a12:rgb(162 0 255 / .12);
+  --violet-500-a30:rgb(162 0 255 / .3);
+  --violet-500-a85:rgb(162 0 255 / .85);
+  --lilac-50:#f3f2ff;
+  --lilac-100:#e8e5ff;
+  --navy-600:#1c3860;
+  --navy-700:#12294a;
+  --navy-750:#0f2446;
+  --navy-775:#0e2242;
+  --navy-800:#022554;
+  --navy-850:#0a1a33;
+  --navy-900:#031833;
+  --navy-925:#06152b;
+  --navy-950:#020c1b;
+  --navy-a20:rgb(2 37 84 / .2);
+  --grey-50:#f2f6fc;
+  --grey-200:#dfe5ee;
+  --grey-300:#cdd5e0;
+  --grey-600:#4f5d74;
+  --slate-200:#d3dcea;
+  --slate-300:#c3cedf;
+  --slate-400:#93a5c0;
+  --green-300:#5fe0a0;
+  --green-500:#19b56b;
+  --green-500-a18:rgb(25 181 107 / .18);
+  --green-700:#0d7a45;
+  --red-300:#ff8fa0;
+  --red-500:#ef4260;
+  --red-500-a15:rgb(239 66 96 / .15);
+  --red-700:#b3243e;
+  --black-a10:rgb(0 0 0 / .1);
+  --black-a15:rgb(0 0 0 / .15);
+  --black-a40:rgb(0 0 0 / .4);
+  --black:#000000;
+  --black-a60:rgb(0 0 0 / .6);
+  --black-a80:rgb(0 0 0 / .8);
+  --blue-50:#eaf3ff;
+  --slate-500:#7a8ca8;
+  --ink-shadow-a08:rgb(3 24 51 / .08);
+  --ink-shadow-a22:rgb(2 12 27 / .22);
+  --ink-shadow-a35:rgb(2 12 27 / .35);
+  --tv-up:#089981;
+  --tv-down:#f23645;
+  --screen-frame-hex:#07142b;
+  --screen-bg-hex:#0c1f3f;
+  --screen-panel-hex:#16305a;
+  --screen-muted-hex:#8ea4c6;
+  --telegram-hex:#229ed9;
+  --whatsapp-hex:#25d366;
+  --navy-a60:rgb(2 12 27 / .6);
+  --font-sans:"Inter","Inter Fallback",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:ui-monospace,"SFMono-Regular","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --text-1:.75rem;
+  --text-2:.875rem;
+  --text-3:1rem;
+  --text-4:1.1875rem;
+  --text-5:1.5rem;
+  --text-6:2rem;
+  --text-7:2.875rem;
+  --text-8:3.375rem;
+  --display-1:clamp(var(--text-6),1.3rem + 2.6vw,var(--text-8));
+  --display-2:clamp(var(--text-6),1.45rem + 1.6vw,var(--text-7));
+  --leading-display:1.3;
+  --leading-heading:1.35;
+  --leading-snug:1.4;
+  --leading-body:1.75;
+  --leading-text:1.6;
+  --leading-list:2.25;
+  --leading-figure:1.05;
+  --tracking-tight:-.02em;
+  --tracking-wide:.06em;
+  --tracking-eyebrow:.2em;
+  --weight-regular:400;
+  --weight-semibold:600;
+  --weight-bold:700;
+  --weight-heavy:800;
+  --space-1:.25rem;
+  --space-2:.5rem;
+  --space-3:.75rem;
+  --space-4:1rem;
+  --space-5:1.25rem;
+  --space-6:1.5rem;
+  --space-8:2rem;
+  --space-9:2.25rem;
+  --space-10:2.5rem;
+  --space-12:3rem;
+  --space-14:3.5rem;
+  --space-16:4rem;
+  --space-18:4.5rem;
+  --space-20:5rem;
+  --space-24:6rem;
+  --space-28:7rem;
+  --radius-1:.375rem;
+  --radius-2:1rem;
+  --radius-3:2rem;
+  --radius-4:2.5rem;
+  --radius-5:3rem;
+  --radius-menu:.625rem;
+  --radius-6:3.75rem;
+  --radius-tile:22%;
+  --radius-round:50%;
+  --radius-pill:999rem;
+  --size-dot:.375rem;
+  --size-icon-xs:.75rem;
+  --size-icon-sm:.875rem;
+  --size-icon-md:1.25rem;
+  --size-icon-lg:1.5rem;
+  --size-icon-circle:2.25rem;
+  --size-icon-circle-lg:2.875rem;
+  --size-install:2.5rem;
+  --size-control-sm:2.75rem;
+  --size-control-md:3rem;
+  --size-field:3.5rem;
+  --size-play:3.625rem;
+  --size-control:3.875rem;
+  --size-badge:3rem;
+  --size-thumb:3.5rem;
+  --size-logo-h:2.5rem;
+  --size-logo-h-sm:1.75rem;
+  --logo-ratio:5.488;
+  --size-broker-chip:2.75rem;
+  --size-modal:30rem;
+  --size-channel-icon:2.75rem;
+  --size-footer-brand:17rem;
+  --size-bar:.25rem;
+  --size-menu-list:16rem;
+  --size-mega-logo:4rem;
+  --size-rule:3rem;
+  --size-rule-thick:.1875rem;
+  --size-feature-icon:3rem;
+  --size-stat-icon:3.5rem;
+  --size-check:1.375rem;
+  --size-chip-icon:2.75rem;
+  --size-plan-bar:.375rem;
+  --size-notch:1.75rem;
+  --size-header:6.75rem;
+  --size-hero:45rem;
+  --container:85rem;
+  --footer-max:93.75rem;
+  --newsletter-max:80rem;
+  --measure:36rem;
+  --measure-narrow:19rem;
+  --measure-title:34rem;
+  --measure-head:46rem;
+  --video-max:62.5rem;
+  --toc-width:20rem;
+  --size-chip:2.75rem;
+  --size-marker:1.75rem;
+  --size-stage-logo:12rem;
+  --measure-faq:52rem;
+  --measure-prose:46rem;
+  --size-step-number:2.75rem;
+  --size-app:27rem;
+  --size-app-logo:3.25rem;
+  --size-app-logo-lg:4rem;
+  --size-tf-cell:3.25rem;
+  --size-tf:2.5rem;
+  --size-smc-key:2.75rem;
+  --size-smc-go:3.25rem;
+  --size-smc-meter:.5rem;
+  --size-live:.5rem;
+  --size-float:17rem;
+  --size-drawer:20rem;
+  --gutter:var(--space-4);
+  --section-gap:var(--space-14);
+  --footer-overlap:var(--space-16);
+  --plan-lift:var(--space-14);
+  --border-width:1px;
+  --border-width-strong:2px;
+  --focus-width:3px;
+  --focus-offset:3px;
+  --dur-1:.15s;
+  --dur-2:.24s;
+  --dur-lift:.22s;
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+  --z-raised:1;
+  --z-overlay:2;
+  --z-float:3;
+  color-scheme:light;
+  interpolate-size:allow-keywords;
+  --surface-page:var(--white);
+  --surface-card:var(--white);
+  --surface-raised:var(--white);
+  --surface-field:var(--white);
+  --surface-tint:var(--lilac-50);
+  --surface-tint-strong:var(--lilac-100);
+  --surface-inverse:var(--navy-900);
+  --surface-control:var(--lilac-50);
+  --grad-from:var(--blue-700);
+  --grad-to:var(--violet-500);
+  --grad-brand:linear-gradient(135deg,var(--blue-700),var(--violet-500));
+  --grad-overlay:linear-gradient(135deg,var(--blue-700-a85),var(--violet-500-a85));
+  --grad-disc:linear-gradient(150deg,var(--blue-500),var(--blue-700) 50%,var(--violet-500));
+  --grad-text-on-light:linear-gradient(135deg,var(--blue-700),var(--violet-500));
+  --grad-text-on-dark:linear-gradient(in oklch 135deg,var(--blue-500),var(--violet-500));
+  --grad-text:var(--grad-text-on-light);
+  --grad-mid:color-mix(in srgb,var(--blue-700),var(--violet-500));
+  --surface-accent:var(--grad-brand);
+  --icon-grad:url(#grad-brand);
+  --ink-strong:var(--navy-900);
+  --ink:var(--navy-800);
+  --ink-muted:var(--grey-600);
+  --ink-on-inverse:var(--white);
+  --ink-on-raised:var(--navy-900);
+  --ink-on-inverse-muted:var(--slate-300);
+  --ink-on-accent:var(--white);
+  --on-accent:var(--white);
+  --on-accent-a20:var(--white-a20);
+  --accent:var(--violet-500);
+  --accent-a12:var(--violet-500-a12);
+  --accent-ink:var(--blue-700);
+  --accent-ink-on-light:var(--blue-700);
+  --accent-ink-on-inverse:var(--blue-500);
+  --surface-stage:var(--navy-900);
+  --stage-glow:var(--violet-500-a30);
+  --stage-fill:radial-gradient(circle at 50% 45%,var(--stage-glow),transparent 62%),var(--surface-stage);
+  --scrim-modal:var(--navy-a60);
+  --pill-ink:var(--accent-ink);
+  --telegram:var(--telegram-hex);
+  --whatsapp:var(--whatsapp-hex);
+  --candle-up:var(--tv-up);
+  --candle-down:var(--tv-down);
+  --border:var(--black-a15);
+  --border-strong:var(--grey-300);
+  --border-subtle:var(--grey-200);
+  --border-field:var(--grey-300);
+  --border-panel:transparent;
+  --border-inverse:var(--white-a14);
+  --border-on-tint:var(--white);
+  --surface-inverse-field:var(--white-a07);
+  --danger-on-inverse:var(--red-300);
+  --success-on-inverse:var(--green-300);
+  --scrim:var(--navy-a20);
+  --badge-bg:var(--grad-brand);
+  --badge-ink:var(--white);
+  --logo-ring:transparent;
+  --focus-ring:var(--violet-500);
+  --danger-ink:var(--red-700);
+  --success-ink:var(--green-700);
+  --up:var(--green-500);
+  --up-soft:var(--green-500-a18);
+  --down:var(--red-500);
+  --down-soft:var(--red-500-a15);
+  --wait-soft:var(--surface-tint-strong);
+  --up-on-screen:var(--green-300);
+  --arcs-on-inverse:var(--white-a07);
+  --arcs-on-tint:var(--violet-500-a12);
+  --screen-frame:var(--screen-frame-hex);
+  --screen-bg:var(--screen-bg-hex);
+  --screen-panel:var(--screen-panel-hex);
+  --screen-ink:var(--white);
+  --screen-muted:var(--screen-muted-hex);
+  --screen-line:var(--white-a10);
+  --screen-on-signal:var(--screen-bg-hex);
+  --down-on-screen:var(--red-300);
+  --shadow-pill:0 5px 20px var(--black-a10);
+  --shadow-float:0 18px 44px var(--ink-shadow-a22);
+  --shadow-device:0 28px 60px var(--ink-shadow-a35);
+  --shadow-glow:0 10px 30px var(--violet-500-a30);
+  --shadow-card-hover:0 18px 44px var(--ink-shadow-a08);
+  --shadow-menu:0 10px 40px var(--black-a10);
+  --shadow-lift:0 5px 35px var(--black-a10);
+  --shadow-chip:0 10px 30px var(--black-a15);
+  --mark-light-ground:var(--blue-50);
+  --seg-rest:var(--slate-500);
+  --accent-border:var(--violet-500-a30);
+  --accent-on-screen:var(--blue-500);
+  --attention:var(--gold-500,#f59e0b);
+  --attention-ink:var(--gold-800,#854d0e);
+  --attention-soft:rgb(245 158 11 / .18);
+  --gold-500:#f59e0b;
+  --gold-800:#854d0e;
+  --gold-200:#fcd34d;
+}
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --surface-page:var(--navy-950);
+  --surface-card:var(--navy-925);
+  --surface-raised:var(--navy-775);
+  --surface-field:var(--navy-925);
+  --surface-tint:var(--navy-850);
+  --surface-tint-strong:var(--navy-750);
+  --surface-inverse:var(--navy-900);
+  --surface-control:var(--navy-750);
+  --grad-text:var(--grad-text-on-dark);
+  --grad-from:var(--blue-500);
+  --accent-ink:var(--accent-ink-on-inverse);
+  --ink-on-raised:var(--grey-50);
+  --ink-strong:var(--grey-50);
+  --pill-ink:var(--ink-strong);
+  --ink:var(--slate-200);
+  --ink-muted:var(--slate-400);
+  --ink-on-inverse-muted:var(--slate-300);
+  --border:var(--white-a14);
+  --border-strong:var(--white-a20);
+  --border-subtle:var(--white-a10);
+  --border-field:var(--white-a20);
+  --border-panel:var(--white-a10);
+  --border-on-tint:var(--white-a10);
+  --logo-ring:var(--white-a14);
+  --danger-ink:var(--red-300);
+  --success-ink:var(--green-300);
+  --arcs-on-tint:var(--white-a07);
+  --shadow-pill:0 5px 20px var(--black-a40);
+  --shadow-float:0 18px 44px var(--black-a40);
+  --shadow-device:0 28px 60px var(--black-a40);
+  --shadow-card-hover:0 18px 44px var(--black-a40);
+  --shadow-menu:0 10px 40px var(--black-a40);
+  --shadow-lift:0 5px 35px var(--black-a40);
+  --shadow-chip:0 10px 30px var(--black-a40);
+  --seg-rest:var(--slate-400);
+  --attention-ink:var(--gold-200);
+}
+@media (min-width:48em){:root{--gutter:var(--space-6);--section-gap:var(--space-20);--footer-overlap:var(--space-20)}}
+@media (min-width:64em){:root{--gutter:var(--space-10);--section-gap:var(--space-28);--footer-overlap:var(--space-24);--plan-lift:var(--space-16)}}
+@media (prefers-reduced-motion:reduce){:root{--dur-1:0ms;--dur-2:0ms;--dur-lift:0ms}}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,*:before,*:after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  font-size:var(--text-3);
+  line-height:var(--leading-body);
+  color:var(--ink);
+  background:var(--surface-page);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+img,svg{display:block;max-inline-size:100%}
+h1,h2,h3,p,ul,dl,dd,figure{margin:0}
+h1,h2,h3{text-wrap:balance}
+ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:var(--focus-width) solid var(--focus-ring);outline-offset:var(--focus-offset)}
+.visually-hidden{position:absolute;inline-size:1px;block-size:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sprite{position:absolute;inline-size:0;block-size:0;overflow:hidden}
+.skip-link{position:absolute;inset-block-start:var(--space-2);inset-inline-start:var(--space-2);z-index:var(--z-float);padding:var(--space-3) var(--space-5);border-radius:var(--radius-pill);background:var(--surface-inverse);color:var(--ink-on-inverse);font-weight:var(--weight-bold);transform:translateY(-200%)}
+.skip-link:focus-visible{transform:none}
+.shell{inline-size:min(calc(100% - var(--gutter) * 2),var(--container));margin-inline:auto}
+.section{margin-block-start:var(--section-gap)}
+.text-accent{color:var(--accent-ink);background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.icon{inline-size:var(--size-icon-md);block-size:var(--size-icon-md);flex:none}
+.deco-arcs{position:absolute;inset:0;z-index:-1;inline-size:100%;block-size:100%;max-inline-size:none;pointer-events:none}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  --btn-bg:var(--surface-accent);
+  --btn-ink:var(--ink-on-accent);
+  --btn-icon-bg:var(--on-accent-a20);
+  --btn-icon-ink:currentColor;
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-5);
+  min-block-size:var(--size-control);
+  padding-block:var(--space-3);
+  padding-inline:var(--space-9) var(--space-3);
+  border:0;border-radius:var(--radius-pill);
+  background:var(--btn-bg);color:var(--btn-ink);
+  font-size:var(--text-3);font-weight:var(--weight-bold);line-height:1;white-space:nowrap;
+  cursor:pointer;transition:box-shadow var(--dur-2) var(--ease-out);
+}
+.btn:hover{box-shadow:var(--shadow-glow)}
+.btn__icon{display:grid;place-items:center;inline-size:var(--size-icon-circle);block-size:var(--size-icon-circle);border-radius:var(--radius-round);background:var(--btn-icon-bg);color:var(--btn-icon-ink);transition:transform var(--dur-2) var(--ease-out)}
+.btn__icon .icon{inline-size:var(--size-icon-sm);block-size:var(--size-icon-sm)}
+.btn:hover .btn__icon{transform:translate(var(--space-1))}
+.btn--light{--btn-bg:var(--on-accent);--btn-ink:var(--accent-ink-on-light);--btn-icon-bg:var(--accent-a12)}
+.btn--outline{--btn-bg:transparent;--btn-ink:var(--ink-strong);box-shadow:inset 0 0 0 var(--border-width-strong) var(--border-strong);transition:box-shadow var(--dur-2) var(--ease-out)}
+.btn--outline:hover{box-shadow:inset 0 0 0 var(--border-width-strong) var(--accent)}
+.btn--solo{padding-inline:var(--space-9)}
+.icon-button{display:inline-grid;place-items:center;inline-size:var(--size-control-md);block-size:var(--size-control-md);padding:0;border:0;border-radius:var(--radius-round);background:var(--surface-control);color:var(--ink-strong);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
+.icon-button:hover{background:var(--surface-tint-strong)}
+
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
+.site-header{position:relative;z-index:var(--z-float)}
+.site-header__bar{display:flex;align-items:center;gap:var(--space-6);min-block-size:var(--size-header)}
+.brand{--logo-h:var(--size-logo-h);display:inline-flex;flex:none;border-radius:var(--radius-1)}
+.brand__logo{position:relative;display:flex;align-items:center;gap:var(--space-2);block-size:var(--logo-h);font-weight:var(--weight-heavy);font-size:1.125rem;color:var(--ink-strong)}
+.brand__mark{inline-size:2.25rem;block-size:2.25rem;border-radius:9px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;flex:none}
+.brand__mark svg{inline-size:1.4rem;block-size:1.4rem}
+.brand__name{letter-spacing:-.02em;white-space:nowrap}
+.primary-nav{display:none;margin-inline-start:auto}
+.primary-nav__list{display:flex;gap:var(--space-1)}
+.primary-nav__item{position:relative}
+.primary-nav__link{position:relative;display:inline-flex;align-items:center;gap:var(--space-2);min-block-size:var(--size-control-md);padding-inline:var(--space-4);font-weight:var(--weight-semibold);color:var(--ink);white-space:nowrap;background:none;border:0;cursor:pointer;font-size:inherit}
+.primary-nav__link:after{content:"";position:absolute;inset-block-end:0;inset-inline-start:50%;inline-size:var(--size-dot);block-size:var(--size-dot);border-radius:var(--radius-round);background:var(--grad-brand);transform:translate(-50%) scale(0);transition:transform var(--dur-1) var(--ease-out)}
+.primary-nav__link:hover:after,.primary-nav__link[aria-current=page]:after{transform:translate(-50%) scale(1)}
+.primary-nav__link[aria-current=page]{color:var(--ink-strong)}
+.primary-nav__caret{inline-size:var(--size-icon-xs);block-size:var(--size-icon-xs);color:var(--ink-muted);transition:rotate var(--dur-2) var(--ease-out)}
+.primary-nav__item[data-open]>.primary-nav__link .primary-nav__caret{rotate:180deg}
+.nav-menu{position:absolute;inset-block-start:calc(100% + var(--space-3));inset-inline-start:0;z-index:var(--z-float);inline-size:max-content;padding-block:var(--space-4);border:var(--border-width) solid var(--border-panel);border-radius:var(--radius-menu);background:var(--surface-raised);box-shadow:var(--shadow-menu);opacity:0;visibility:hidden;translate:0 var(--space-2);transition:opacity var(--dur-1) var(--ease-out),translate var(--dur-1) var(--ease-out),visibility 0s linear var(--dur-1)}
+.primary-nav__item[data-open]>.nav-menu{opacity:1;visibility:visible;translate:0 0;transition:opacity var(--dur-2) var(--ease-out),translate var(--dur-2) var(--ease-out),visibility 0s}
+.menu-list__link{position:relative;display:flex;align-items:center;gap:var(--space-3);min-block-size:var(--size-control-sm);padding-inline:var(--space-6);white-space:nowrap;color:var(--ink);line-height:var(--leading-snug);transition:color var(--dur-1) var(--ease-out)}
+.menu-list__link:hover,.menu-list__link:focus-visible{color:var(--ink-strong)}
+.menu-list__bullet{flex:none;inline-size:var(--size-dot);block-size:var(--size-dot);border-radius:var(--radius-round);background:var(--ink-muted)}
+.site-header__tools{display:flex;gap:var(--space-2);margin-inline-start:auto}
+.theme-toggle__sun,:root[data-theme=dark] .theme-toggle__moon{display:none}
+:root[data-theme=dark] .theme-toggle__sun{display:block}
+.nav-toggle{display:none}
+.js .nav-toggle{display:inline-grid}
+@media (min-width:64em){.primary-nav{display:block}.site-header__tools{margin-inline-start:var(--space-4)}.js .nav-toggle{display:none}}
+
+/* Drawer */
+.nav-drawer{inline-size:min(var(--size-drawer),100%);max-inline-size:100%;block-size:100%;max-block-size:100%;margin:0 0 0 auto;padding:var(--space-6);border:0;background:var(--surface-page);color:var(--ink)}
+.nav-drawer::backdrop{background:var(--scrim)}
+.nav-drawer__head{display:flex;align-items:center;justify-content:space-between}
+.nav-drawer__list{display:grid;margin-block:var(--space-8)}
+.nav-drawer__link{display:flex;align-items:center;min-block-size:var(--size-control-md);border-block-end:var(--border-width) solid var(--border-subtle);font-size:var(--text-4);font-weight:var(--weight-semibold);color:var(--ink-strong)}
+.nav-drawer__link[aria-current=page]{color:var(--accent-ink)}
+
+/* ============================================================
+   BREADCRUMBS
+   ============================================================ */
+.crumbs{padding-block:var(--space-4) 0;font-size:var(--text-2);color:var(--ink-muted)}
+.crumbs__list{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-3);padding:0;list-style:none}
+.crumbs__list li+li:before{content:"/";margin-inline-end:var(--space-3);color:var(--border-strong)}
+.crumbs__list a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--border-strong);text-underline-offset:var(--space-1)}
+.crumbs__list a:hover{color:var(--accent-ink);text-decoration-color:currentColor}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding-block-start:var(--space-2)}
+.lp-hero__inner{display:grid;gap:var(--space-10);align-items:center;padding-block:var(--space-8) 0}
+.lp-hero__eyebrow{font-size:var(--text-2);font-weight:var(--weight-bold);line-height:var(--leading-snug);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--ink-muted)}
+.lp-hero__title{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:var(--space-4);margin-block-start:var(--space-6);font-size:var(--display-2);font-weight:var(--weight-bold);line-height:var(--leading-display);letter-spacing:var(--tracking-tight);color:var(--ink-strong);text-wrap:balance}
+.lp-hero__accent{display:block;grid-column:1 / -1;white-space:normal}
+.lp-hero__lead{max-inline-size:var(--measure);margin-block-start:var(--space-5);font-size:var(--text-4);line-height:var(--leading-text);color:var(--ink-muted);text-wrap:pretty}
+.lp-hero__features{max-inline-size:44rem;margin-block-start:var(--space-6)}
+.lp-hero__actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-4) var(--space-8);margin-block-start:var(--space-8)}
+.lp-hero__proof{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6);margin-block-start:var(--space-8);padding:0;list-style:none;font-size:var(--text-2);font-weight:var(--weight-semibold);color:var(--ink)}
+.lp-hero__proof li{display:inline-flex;align-items:center;gap:var(--space-2)}
+.lp-hero__proof-icon{inline-size:var(--size-icon-md);block-size:var(--size-icon-md);fill:var(--icon-grad)}
+.lp-hero__stage{position:relative;isolation:isolate;display:grid;justify-items:center;padding-block:var(--space-6) var(--space-10)}
+.lp-hero__block{position:absolute;z-index:-1;inset-block:var(--space-24) 0;inset-inline-start:var(--space-10);inset-inline-end:calc(var(--gutter) * -1);overflow:hidden;border-start-start-radius:var(--radius-5);border-end-start-radius:var(--radius-5);background:var(--grad-brand);color:var(--white-a14)}
+.lp-hero__block .deco-arcs{color:inherit}
+@media (min-width:64em){
+  .lp-hero__inner{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:var(--space-14);padding-block-start:var(--space-10)}
+  .lp-hero__block{inset-block:var(--space-16) 0;inset-inline-start:var(--space-20)}
+  .lp-hero__inner:has(>.lp-hero__stage--app){grid-template-columns:minmax(0,1fr) var(--size-hero-app)}
+  .lp-hero__stage--app{justify-items:end}
+  .lp-hero__stage--app .lp-hero__block{inset-inline-start:0}
+}
+
+/* ============================================================
+   CHECKLIST
+   ============================================================ */
+.checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3) var(--space-6);margin-block-start:var(--space-8)}
+.checklist__item{display:flex;align-items:center;gap:var(--space-3);line-height:var(--leading-snug);color:var(--ink-strong)}
+.checklist__icon{flex:none;inline-size:var(--size-check);block-size:var(--size-check);fill:var(--icon-grad)}
+@media (max-width:26em){.checklist{grid-template-columns:minmax(0,1fr)}}
+
+/* ============================================================
+   APP MOCKUP (SMC Signal AI Bot)
+   ============================================================ */
+.sig-app{
+  position:relative;
+  display:grid;
+  gap:var(--space-4);
+  inline-size:min(100%,var(--size-app));
+  padding:var(--space-5);
+  border:var(--border-width) solid var(--border-panel);
+  border-radius:var(--radius-3);
+  background:var(--screen-frame);
+  box-shadow:var(--shadow-device);
+  color:var(--screen-ink);
+  font-size:var(--text-2);
+}
+.sig-app__head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)}
+.sig-app__brand{display:flex;align-items:center;gap:var(--space-3)}
+.sig-app__logo{inline-size:var(--size-app-logo);block-size:var(--size-app-logo);border-radius:var(--radius-2);background:var(--grad-brand);display:grid;place-items:center;color:#fff;flex:none}
+.sig-app__logo svg{inline-size:60%;block-size:60%}
+.sig-app__title{font-weight:var(--weight-bold);line-height:var(--leading-snug);color:#fff}
+.sig-app__sub{font-size:var(--text-1);color:var(--screen-muted);line-height:var(--leading-snug)}
+.sig-app__live{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-1) var(--space-3);border-radius:var(--radius-pill);background:var(--green-500-a18);color:var(--green-300);font-size:var(--text-1);font-weight:var(--weight-bold);letter-spacing:var(--tracking-wide);text-transform:uppercase}
+.sig-app__live-dot{inline-size:var(--size-live);block-size:var(--size-live);border-radius:var(--radius-round);background:currentColor;box-shadow:0 0 0 3px var(--green-500-a18)}
+.sig-app__fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+.sig-app__field{display:grid;gap:var(--space-1)}
+.sig-app__field--wide{grid-column:1 / -1}
+.sig-app__label{font-size:var(--text-1);font-weight:var(--weight-bold);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--screen-muted)}
+.sig-app__select{
+  -webkit-appearance:none;appearance:none;
+  inline-size:100%;min-block-size:var(--size-control-sm);
+  padding-inline:var(--space-4) var(--space-8);
+  border:var(--border-width) solid var(--screen-line);
+  border-radius:var(--radius-2);
+  background:var(--screen-panel);
+  color:#fff;font-weight:var(--weight-semibold);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238ea4c6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right var(--space-3) center;background-size:1rem;
+  cursor:pointer;
+}
+.sig-app__select:hover,.sig-app__select:focus-visible{border-color:var(--accent-on-screen);outline:none}
+.sig-app__select option{background:var(--screen-frame);color:#fff}
+.sig-app__tfs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--space-1);padding:var(--space-1);border-radius:var(--radius-pill);background:var(--screen-panel)}
+.sig-app__tf{
+  min-block-size:var(--size-tf);
+  padding:0;
+  border:0;border-radius:var(--radius-pill);
+  background:transparent;color:var(--screen-muted);
+  font-size:var(--text-1);font-weight:var(--weight-bold);cursor:pointer;
+  transition:background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out);
+}
+.sig-app__tf:hover{color:#fff}
+.sig-app__tf[aria-pressed=true]{background:var(--grad-brand);color:#fff;box-shadow:var(--shadow-pill)}
+.sig-app__go{
+  display:flex;align-items:center;justify-content:center;gap:var(--space-3);
+  inline-size:100%;min-block-size:var(--size-smc-go);
+  border:0;border-radius:var(--radius-pill);
+  background:var(--grad-brand);color:#fff;
+  font-size:var(--text-3);font-weight:var(--weight-bold);cursor:pointer;
+  box-shadow:var(--shadow-glow);
+  transition:transform var(--dur-1) var(--ease-out),box-shadow var(--dur-2) var(--ease-out);
+}
+.sig-app__go:hover{box-shadow:0 14px 38px var(--violet-500-a30)}
+.sig-app__go:active{transform:scale(.98)}
+.sig-app__go .icon{inline-size:var(--size-icon-md);block-size:var(--size-icon-md)}
+
+/* Signal card */
+.sig-card{
+  display:grid;gap:var(--space-3);
+  padding:var(--space-4);
+  border:var(--border-width) solid var(--border);
+  border-radius:var(--radius-3);
+  background:var(--surface-card);
+  color:var(--ink);
+  transition:border-color var(--dur-2) var(--ease-out),box-shadow var(--dur-2) var(--ease-out);
+}
+.sig-card.is-flash{border-color:var(--accent);box-shadow:0 0 0 var(--focus-width) var(--accent-a12)}
+.sig-card__top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)}
+.sig-card__label{font-size:var(--text-1);font-weight:var(--weight-bold);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--ink-muted)}
+.sig-card__chip{padding:var(--space-1) var(--space-3);border-radius:var(--radius-pill);background:var(--surface-tint);color:var(--ink);font-size:var(--text-1);font-weight:var(--weight-bold);white-space:nowrap}
+.sig-card__answer{
+  display:flex;align-items:center;gap:var(--space-4);
+  padding:var(--space-4);
+  border-radius:var(--radius-2);
+  background:var(--up-soft);
+  transition:background-color var(--dur-2) var(--ease-out);
+}
+.sig-card__answer.is-put{background:var(--down-soft)}
+.sig-card__answer.is-wait{background:var(--wait-soft)}
+.sig-card__glyph{
+  display:grid;place-items:center;flex:none;
+  inline-size:var(--size-icon-circle-lg);block-size:var(--size-icon-circle-lg);
+  border-radius:var(--radius-round);
+  background:var(--up);color:#fff;
+}
+.sig-card__answer.is-put .sig-card__glyph{background:var(--down)}
+.sig-card__answer.is-wait .sig-card__glyph{background:var(--ink-muted)}
+.sig-card__glyph .icon{inline-size:var(--size-icon-lg);block-size:var(--size-icon-lg);fill:currentColor}
+.sig-card__word{font-size:var(--text-5);font-weight:var(--weight-heavy);line-height:1;letter-spacing:-.02em;color:var(--up)}
+.sig-card__answer.is-put .sig-card__word{color:var(--down)}
+.sig-card__answer.is-wait .sig-card__word{color:var(--ink-muted)}
+.sig-card__purpose{font-size:var(--text-2);line-height:var(--leading-snug);color:var(--ink-muted);margin-block-start:var(--space-1)}
+.sig-card__meter{display:grid;gap:var(--space-2)}
+.sig-card__meter-head{display:flex;align-items:center;justify-content:space-between;font-size:var(--text-2);color:var(--ink-muted)}
+.sig-card__meter-head b{color:var(--ink-strong);font-variant-numeric:tabular-nums}
+.sig-card__meter-track{block-size:var(--size-smc-meter);border-radius:var(--radius-pill);background:var(--surface-tint-strong);overflow:hidden}
+.sig-card__meter-fill{block-size:100%;inline-size:0;border-radius:inherit;background:var(--grad-brand);transition:inline-size .6s var(--ease-out)}
+.sig-card__facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3);padding-block-start:var(--space-2);border-block-start:var(--border-width) solid var(--border-subtle)}
+.sig-card__fact{display:grid;gap:var(--space-1)}
+.sig-card__fact dt{font-size:var(--text-1);font-weight:var(--weight-bold);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--ink-muted)}
+.sig-card__fact dd{margin:0;font-family:var(--font-mono);font-size:var(--text-3);font-weight:var(--weight-bold);color:var(--ink-strong);font-variant-numeric:tabular-nums}
+.sig-card__note{margin:0;font-size:var(--text-1);line-height:var(--leading-snug);color:var(--ink-muted);text-align:center}
+
+/* ============================================================
+   SECTION HEAD
+   ============================================================ */
+.section-head{display:grid;justify-items:center;gap:var(--space-4);max-inline-size:var(--measure-head);margin-inline:auto;text-align:center}
+.section-head__eyebrow{display:flex;align-items:center;gap:var(--space-4);font-size:var(--text-2);font-weight:var(--weight-semibold);line-height:var(--leading-snug);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--ink-muted)}
+.section-head__eyebrow:before,.section-head__eyebrow:after{content:"";flex:none;inline-size:var(--space-8);block-size:var(--size-rule-thick);border-radius:var(--radius-pill);background:var(--eyebrow-rule,var(--grad-brand))}
+.section-head__title{font-size:var(--display-2);font-weight:var(--weight-semibold);line-height:var(--leading-heading);letter-spacing:var(--tracking-tight);color:var(--ink-strong)}
+.section-head--start{justify-items:start;margin-inline:0;text-align:start}
+.section-head--start .section-head__eyebrow:after{content:none}
+@media (min-width:48em){.section-head__eyebrow{gap:var(--space-5)}.section-head__eyebrow:before,.section-head__eyebrow:after{inline-size:var(--size-rule)}}
+.split-head{display:grid;gap:var(--space-5)}
+.split-head__lead{max-inline-size:var(--measure);font-size:var(--text-4);line-height:var(--leading-text);color:var(--ink-muted);text-wrap:pretty}
+@media (min-width:64em){.split-head{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:end;gap:var(--space-14)}.split-head__lead{justify-self:end;padding-block-end:var(--space-2)}}
+
+/* ============================================================
+   FEATURE BAND
+   ============================================================ */
+.band{--ink-strong:var(--ink-on-inverse);--ink:var(--ink-on-inverse);--ink-muted:var(--ink-on-inverse);--eyebrow-rule:var(--on-accent);--focus-ring:var(--on-accent);position:relative;border:var(--border-width) solid var(--border-panel);border-radius:var(--radius-4);background:var(--grad-overlay),var(--surface-inverse);color:var(--ink-on-inverse);overflow:hidden}
+.feature-band{display:grid;justify-items:center;gap:var(--space-5);padding:var(--space-20) var(--space-4) var(--space-16);text-align:center;margin-block-start:var(--section-gap)}
+.feature-band__chip{position:absolute;inset-block-start:0;inset-inline:0;display:flex;align-items:center;gap:var(--space-4);inline-size:max-content;max-inline-size:calc(100% - var(--space-8));margin-inline:auto;padding:var(--space-2) var(--space-8) var(--space-2) var(--space-2);border-radius:var(--radius-pill);background:var(--surface-raised);box-shadow:var(--shadow-chip);color:var(--ink-on-raised);font-size:var(--text-2);font-weight:var(--weight-bold);line-height:var(--leading-snug);letter-spacing:var(--tracking-wide);text-transform:uppercase;translate:0 -50%}
+.feature-band__chip-icon{display:grid;flex:none;place-items:center;inline-size:var(--size-chip-icon);block-size:var(--size-chip-icon);border-radius:var(--radius-round);background:var(--grad-brand);color:var(--on-accent)}
+.feature-band__chip-icon svg{inline-size:var(--size-icon-md);block-size:var(--size-icon-md);fill:currentColor}
+.feature-band__title{font-size:var(--display-1);font-weight:var(--weight-semibold);line-height:var(--leading-display);letter-spacing:var(--tracking-tight);max-inline-size:var(--measure-head)}
+.feature-band__text{max-inline-size:var(--measure);font-size:var(--text-4);line-height:var(--leading-text);color:var(--ink-on-inverse-muted)}
+.feature-band__actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--space-4) var(--space-8);margin-block-start:var(--space-4)}
+.text-link{display:inline-flex;align-items:center;gap:var(--space-2);min-block-size:var(--size-control-sm);padding:0;border:0;background:none;color:var(--ink-strong);font:inherit;font-weight:var(--weight-bold);cursor:pointer}
+.text-link__icon{inline-size:var(--size-icon-sm);block-size:var(--size-icon-sm);color:var(--accent-ink);transition:translate var(--dur-2) var(--ease-out)}
+.text-link:hover{color:var(--accent-ink)}
+.text-link:hover .text-link__icon{translate:0 var(--space-1)}
+.text-link--on-band{color:var(--ink-on-inverse);flex-wrap:wrap;justify-content:center;text-align:center}
+.text-link--on-band .text-link__icon{color:currentColor}
+@media (max-width:34.99em){.feature-band__chip{padding-inline-end:var(--space-5);letter-spacing:normal;text-transform:none}}
+@media (min-width:64em){.feature-band{padding:var(--space-24) var(--space-10) var(--space-20)}}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline{display:grid;gap:var(--space-2);margin-block-start:var(--space-12);padding:0;list-style:none}
+.timeline__step{position:relative;display:grid;grid-template-columns:var(--size-step-number) minmax(0,1fr);gap:var(--space-1) var(--space-5);padding-block-end:var(--space-8);align-content:start}
+.timeline__dot{position:relative;grid-row:1 / span 3;display:grid;place-items:center;inline-size:var(--size-step-number);block-size:var(--size-step-number);border-radius:var(--radius-round);background:var(--grad-brand);box-shadow:0 0 0 var(--space-2) var(--surface-page);color:var(--on-accent);font-weight:var(--weight-bold)}
+.timeline__step:not(:last-child):before{content:"";position:absolute;inset-block:var(--size-step-number) 0;inset-inline-start:calc(var(--size-step-number) / 2 - var(--border-width));inline-size:var(--border-width-strong);background:var(--grad-brand);opacity:.4}
+.timeline__time{grid-column:2;font-size:var(--text-2);font-weight:var(--weight-bold);font-variant-numeric:tabular-nums;color:var(--accent-ink)}
+.timeline__title{grid-column:2;font-size:var(--text-5);font-weight:var(--weight-semibold);line-height:var(--leading-heading);color:var(--ink-strong)}
+.timeline__text{grid-column:2;line-height:var(--leading-text);color:var(--ink-muted);text-wrap:pretty}
+@media (min-width:56.25em){
+  .timeline{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-8)}
+  .timeline__step{grid-template-columns:minmax(0,1fr);gap:var(--space-3);padding:0}
+  .timeline__time,.timeline__title,.timeline__text{grid-column:1}
+  .timeline__time{grid-row:1}
+  .timeline__dot{grid-row:2}
+  .timeline__step:not(:last-child):before{inset-block:auto;inset-block-start:calc(var(--text-2) * var(--leading-body) + var(--space-3) + var(--size-step-number) / 2);inset-inline:var(--size-step-number) calc(var(--space-8) * -1);inline-size:auto;block-size:var(--border-width-strong)}
+}
+
+/* ============================================================
+   EXPIRY SCALE
+   ============================================================ */
+.scale{display:grid;gap:var(--space-8);margin-block-start:var(--space-12);padding:var(--space-5);border-radius:var(--radius-4);background:var(--surface-tint)}
+.scale__track{display:grid;gap:var(--space-4)}
+.scale__bracket{display:grid;gap:var(--space-1);font-weight:var(--weight-bold);line-height:var(--leading-snug);color:var(--ink-strong)}
+.scale__bracket span{font-size:var(--text-2);font-weight:var(--weight-regular);color:var(--ink-muted)}
+.scale__cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-2);padding:0;list-style:none}
+.scale__cell{display:flex;align-items:center;justify-content:center;gap:var(--space-1);min-block-size:var(--size-control-sm);border:var(--border-width) dashed var(--border-strong);border-radius:var(--radius-2);background:var(--surface-card);font-size:var(--text-2);font-weight:var(--weight-bold);color:var(--ink)}
+.scale__lock{inline-size:var(--size-icon-xs);block-size:var(--size-icon-xs)}
+.scale__cell--free{border:0;background:var(--grad-brand);color:var(--on-accent)}
+.scale__options{display:grid;gap:var(--space-4);padding:0;list-style:none}
+.option{display:grid;align-content:start;justify-items:start;gap:var(--space-3);padding:var(--space-6);border:var(--border-width) solid var(--border);border-radius:var(--radius-3);background:var(--surface-card)}
+.option--featured{border-color:var(--accent)}
+.option__eyebrow{font-size:var(--text-1);font-weight:var(--weight-bold);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--accent-ink)}
+.option__title{font-size:var(--text-5);font-weight:var(--weight-semibold);line-height:var(--leading-heading);color:var(--ink-strong)}
+.option__text{margin-block-end:var(--space-2);line-height:var(--leading-text);color:var(--ink-muted)}
+.option__price{font-size:var(--text-6);font-weight:var(--weight-heavy);line-height:1;color:var(--ink-strong);letter-spacing:-.02em}
+.option__price small{font-size:var(--text-2);font-weight:var(--weight-semibold);color:var(--ink-muted);letter-spacing:0}
+.option__list{display:grid;gap:var(--space-2);margin-block:var(--space-2) var(--space-4);padding:0;list-style:none}
+.option__list li{display:flex;align-items:baseline;gap:var(--space-2);line-height:var(--leading-snug);color:var(--ink)}
+.option__check{flex:none;inline-size:var(--size-icon-sm);block-size:var(--size-icon-sm);color:var(--success-ink);translate:0 var(--space-1)}
+@media (min-width:48em){
+  .scale{padding:var(--space-8)}
+  .scale__track{grid-template-columns:repeat(16,minmax(0,1fr));gap:var(--space-4) var(--space-2)}
+  .scale__bracket{padding-block-end:var(--space-3);border-block-end:var(--border-width-strong) solid var(--border-strong)}
+  .scale__bracket--locked{grid-column:1 / 15}
+  .scale__bracket--free{grid-column:15 / 17;border-color:var(--accent)}
+  .scale__cells{display:contents}
+  .scale__cell{flex-direction:column;min-block-size:var(--size-control);font-size:var(--text-1)}
+  .scale__options{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .scale__options .option:first-child{grid-column:1 / -1}
+}
+
+/* ============================================================
+   MARKETS
+   ============================================================ */
+.markets{margin-block-start:var(--space-10);padding:var(--space-6);border-radius:var(--radius-4);background:var(--surface-tint)}
+.markets__list{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-block-start:var(--space-6);padding:0;list-style:none}
+.markets__list li{padding:var(--space-2) var(--space-4);border-radius:var(--radius-pill);background:var(--surface-card);font-size:var(--text-2);font-weight:var(--weight-semibold);color:var(--ink-strong)}
+@media (min-width:64em){.markets{padding:var(--space-10)}}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-split{display:grid;gap:var(--space-10)}
+.faq-split__aside{display:grid;align-content:start;gap:var(--space-8)}
+.help-card{position:relative;isolation:isolate;overflow:hidden;display:grid;justify-items:start;gap:var(--space-3);padding:var(--space-8);border-radius:var(--radius-4);background:var(--surface-inverse);color:var(--ink-on-inverse)}
+.help-card__icon{display:grid;place-items:center;inline-size:var(--size-icon-circle-lg);block-size:var(--size-icon-circle-lg);border-radius:var(--radius-round);background:var(--grad-brand);color:var(--on-accent)}
+.help-card__title{font-size:var(--text-5);font-weight:var(--weight-semibold);line-height:var(--leading-heading);color:var(--ink-on-inverse)}
+.help-card__text{margin-block-end:var(--space-3);line-height:var(--leading-text);color:var(--ink-on-inverse-muted)}
+.faq__list{display:grid;align-content:start;gap:var(--space-3);padding:0;list-style:none}
+.faq__item{border:var(--border-width) solid var(--border);border-radius:var(--radius-3);background:var(--surface-card);transition:border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out),box-shadow var(--dur-2) var(--ease-out)}
+.faq__item:hover{border-color:var(--accent-border);background:var(--surface-tint)}
+.faq__item[open]{border-color:var(--accent-border);background:var(--surface-card);box-shadow:var(--shadow-card-hover)}
+.faq__question{display:flex;align-items:center;gap:var(--space-4);min-block-size:var(--size-control);padding:var(--space-3) var(--space-3) var(--space-3) var(--space-5);border-radius:inherit;font-weight:var(--weight-semibold);line-height:var(--leading-snug);color:var(--ink-strong);cursor:pointer;list-style:none}
+.faq__question::-webkit-details-marker{display:none}
+.faq__num{flex:none;inline-size:var(--space-6);font-size:var(--text-2);font-weight:var(--weight-bold);font-variant-numeric:tabular-nums;color:var(--ink-muted);transition:color var(--dur-1) var(--ease-out)}
+.faq__q{flex:1}
+.faq__toggle{display:grid;flex:none;place-items:center;inline-size:var(--size-icon-circle);block-size:var(--size-icon-circle);border-radius:var(--radius-round);background:var(--surface-tint-strong);color:var(--accent-ink);transition:rotate var(--dur-2) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
+.faq__caret{inline-size:var(--size-icon-xs);block-size:var(--size-icon-xs)}
+.faq__item:hover .faq__num,.faq__item[open] .faq__num{color:var(--accent-ink)}
+.faq__item:hover .faq__toggle,.faq__item[open] .faq__toggle{background:var(--grad-brand);color:var(--on-accent)}
+.faq__item[open] .faq__toggle{rotate:180deg}
+.faq__answer{padding:0 var(--space-5) var(--space-6);line-height:var(--leading-text);text-wrap:pretty;color:var(--ink)}
+.faq__answer p+p{margin-block-start:var(--space-3)}
+.faq__answer a{color:var(--accent-ink);font-weight:var(--weight-semibold);text-decoration:underline;text-underline-offset:var(--space-1)}
+@media (min-width:40em){.faq__answer{padding-inline:calc(var(--space-5) + var(--space-6) + var(--space-4)) var(--space-14)}}
+@media (min-width:64em){.faq-split{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--space-16)}.faq-split__aside{position:sticky;inset-block-start:var(--space-6);align-self:start}}
+.risk-line{max-inline-size:var(--measure-head);margin:var(--space-10) auto 0;font-size:var(--text-2);line-height:var(--leading-text);text-align:center;color:var(--ink-muted)}
+.risk-line a{color:var(--ink-strong);font-weight:var(--weight-semibold);text-decoration:underline;text-underline-offset:var(--space-1)}
+
+/* ============================================================
+   NEWSLETTER
+   ============================================================ */
+.site-footer{--footer-inset:var(--space-4);--footer-pad:var(--space-6);--footer-radius:var(--radius-3);margin-block-start:var(--section-gap)}
+.newsletter{--grad-text:var(--grad-text-on-dark);--accent-ink:var(--accent-ink-on-inverse);position:relative;isolation:isolate;z-index:var(--z-raised);overflow:hidden;inline-size:min(calc(100% - var(--gutter) * 2 - var(--footer-inset) * 2),var(--newsletter-max));margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-8);align-items:center;padding:var(--space-10) var(--space-6);border:var(--border-width) solid var(--border-panel);border-radius:var(--radius-4);background:var(--surface-inverse);color:var(--ink-on-inverse)}
+.newsletter .deco-arcs{color:var(--arcs-on-inverse)}
+.newsletter__title{font-size:var(--display-2);font-weight:var(--weight-heavy);line-height:var(--leading-heading);letter-spacing:var(--tracking-tight)}
+.newsletter__text{margin-block-start:var(--space-2);color:var(--ink-on-inverse-muted)}
+.newsletter-form__label{display:block;margin-block-end:var(--space-2);font-size:var(--text-2);font-weight:var(--weight-semibold);color:var(--ink-on-inverse-muted)}
+.newsletter-form__row{display:flex;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-2);border:var(--border-width) solid var(--border-inverse);border-radius:var(--radius-pill);background:var(--surface-inverse-field)}
+.newsletter-form__input{flex:1 1 12rem;min-inline-size:0;min-block-size:var(--size-control-md);padding-inline:var(--space-5);border:0;border-radius:var(--radius-pill);background:transparent;color:var(--ink-on-inverse)}
+.newsletter-form__input::placeholder{color:var(--ink-on-inverse-muted);opacity:1}
+.newsletter-form__input:focus-visible{outline-offset:0}
+.newsletter-form__input[aria-invalid=true]{box-shadow:inset 0 0 0 var(--border-width) var(--danger-on-inverse)}
+.form-status{min-block-size:1lh;margin-block-start:var(--space-4);font-size:var(--text-2);font-weight:var(--weight-semibold);color:var(--success-on-inverse)}
+.newsletter .field__error{margin-block-start:var(--space-2);color:var(--danger-on-inverse);font-size:var(--text-2);font-weight:var(--weight-semibold)}
+.newsletter-form .btn{flex:0 0 auto}
+@media (max-width:34.99em){.newsletter-form__row{flex-direction:column;border-radius:var(--radius-3)}.newsletter-form__input{flex-basis:auto;inline-size:100%}}
+@media (min-width:56.25em){.newsletter{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);padding:var(--space-14) var(--space-18)}}
+@media (min-width:75em){.newsletter{padding:var(--space-18) var(--space-20)}}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer__body,.site-footer__bar{inline-size:min(calc(100% - var(--gutter) * 2),var(--footer-max));margin-inline:auto;padding-inline:var(--footer-pad)}
+.site-footer__body{margin-block-start:calc(var(--footer-overlap) * -1);padding-block:calc(var(--footer-overlap) + var(--space-12)) var(--space-12);border:var(--border-width) solid var(--border-panel);border-radius:var(--footer-radius);background:var(--surface-tint)}
+.site-footer__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-10) var(--space-6)}
+.footer-brand{grid-column:1 / -1}
+.footer-brand__about{max-inline-size:var(--measure-narrow);margin-block-start:var(--space-6);color:var(--ink-muted)}
+.footer-brand__address{font-style:normal;margin-block-start:var(--space-4);line-height:var(--leading-snug);color:var(--ink-muted)}
+.footer-brand__contact{margin-block-start:var(--space-4);line-height:var(--leading-snug)}
+.footer-brand__contact dt{font-size:var(--text-2);color:var(--ink-muted)}
+.footer-brand__contact dd{margin-block-start:var(--space-1);font-weight:var(--weight-bold);color:var(--ink-strong)}
+.footer-brand__contact dd+dt{margin-block-start:var(--space-3)}
+.footer-brand__contact a:hover{color:var(--accent-ink)}
+.social{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-block-start:var(--space-8)}
+.social__link{display:grid;place-items:center;inline-size:var(--size-control-md);block-size:var(--size-control-md);border:var(--border-width) solid var(--border-strong);border-radius:var(--radius-round);color:var(--accent-ink);transition:background-color var(--dur-1) var(--ease-out)}
+.social__link:hover{background:var(--surface-raised)}
+.footer-col__title{font-size:var(--text-4);font-weight:var(--weight-bold);line-height:var(--leading-snug);color:var(--ink-strong)}
+.footer-col__list{display:grid;margin-block-start:var(--space-4)}
+.footer-col__link{display:inline-flex;align-items:flex-start;gap:var(--space-3);min-block-size:var(--size-control-sm);padding-block:var(--space-2);white-space:nowrap;color:var(--ink-muted);line-height:var(--leading-snug);transition:color var(--dur-1) var(--ease-out)}
+.footer-col__link:hover{color:var(--ink-strong)}
+.footer-company{margin-block-start:var(--space-6);padding-block-start:var(--space-4);border-block-start:var(--border-width) solid var(--border-subtle)}
+.footer-company__list{display:flex;flex-wrap:wrap;gap:var(--space-1) var(--space-8)}
+.footer-company__link{display:inline-flex;align-items:center;gap:var(--space-3);min-block-size:var(--size-control-sm);color:var(--ink-muted);line-height:var(--leading-snug);transition:color var(--dur-1) var(--ease-out)}
+.footer-company__link:before{content:"";flex:none;inline-size:var(--space-2);block-size:var(--space-2);border-radius:var(--radius-round);background:var(--accent)}
+.footer-company__link:hover{color:var(--ink-strong)}
+.site-footer__risk{margin-block-start:var(--space-8);padding-block-start:var(--space-8);border-block-start:var(--border-width) solid var(--border-subtle);font-size:var(--text-2);color:var(--ink-muted)}
+.site-footer__risk p{margin:0}
+.site-footer__risk a{color:var(--ink-strong);font-weight:var(--weight-semibold);text-decoration:underline;text-underline-offset:var(--space-1)}
+.site-footer__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-4) var(--space-8);padding-block:var(--space-8);font-size:var(--text-2);color:var(--ink-muted)}
+.availability{display:flex;align-items:center;gap:var(--space-4)}
+@media (min-width:48em){.site-footer{--footer-inset:var(--space-8);--footer-pad:var(--space-10)}.site-footer__grid{grid-template-columns:repeat(2,max-content);justify-content:space-between;column-gap:var(--space-10)}}
+@media (min-width:64em){.site-footer{--footer-inset:var(--space-10);--footer-pad:var(--space-18);--footer-radius:var(--radius-6)}.site-footer__grid{grid-template-columns:var(--size-footer-brand) repeat(2,max-content)}.footer-brand{grid-column:auto;grid-row:span 2}}
+@media (min-width:90em){.site-footer__grid{grid-template-columns:var(--size-footer-brand) repeat(4,max-content)}.footer-brand{grid-row:auto}}
+
+/* ============================================================
+   CONTACT MODAL
+   ============================================================ */
+.contact-modal{inline-size:min(var(--size-modal),calc(100% - var(--space-8)));max-inline-size:none;max-block-size:calc(100% - var(--space-8));margin:auto;padding:0;border:0;border-radius:var(--radius-3);background:transparent;color:var(--ink);opacity:0;translate:0 var(--space-4);transition:opacity var(--dur-1) var(--ease-out),translate var(--dur-1) var(--ease-out)}
+.contact-modal[open]{opacity:1;translate:0 0;transition-duration:var(--dur-2)}
+.contact-modal::backdrop{background:transparent;transition:background-color var(--dur-1) var(--ease-out)}
+.contact-modal[open]::backdrop{background:var(--scrim-modal);backdrop-filter:blur(var(--space-2))}
+.contact-modal__card{position:relative;padding:var(--space-10) var(--space-6) var(--space-6);border:var(--border-width) solid var(--border-panel);border-radius:inherit;background:var(--surface-raised);box-shadow:var(--shadow-device)}
+.contact-modal__card:before{content:"";position:absolute;inset-block-start:0;inset-inline:var(--space-10);block-size:var(--size-rule-thick);border-radius:0 0 var(--radius-pill) var(--radius-pill);background:var(--grad-brand)}
+.contact-modal__close{position:absolute;inset-block-start:var(--space-4);inset-inline-end:var(--space-4)}
+.contact-modal__head{display:grid;justify-items:center;gap:var(--space-3);text-align:center}
+.contact-modal__mark{inline-size:var(--size-badge);block-size:var(--size-badge);border-radius:var(--radius-2);background:var(--grad-brand);display:grid;place-items:center;color:#fff}
+.contact-modal__eyebrow{padding:var(--space-1) var(--space-4);border-radius:var(--radius-pill);background:var(--accent-a12);color:var(--pill-ink);font-size:var(--text-1);font-weight:var(--weight-bold);line-height:var(--leading-snug);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase}
+.contact-modal__title{font-size:var(--text-5);font-weight:var(--weight-bold);line-height:var(--leading-heading);letter-spacing:var(--tracking-tight);color:var(--ink-strong)}
+.contact-modal__text{font-size:var(--text-2);line-height:var(--leading-text);color:var(--ink-muted);text-wrap:pretty}
+.contact-channels{display:grid;gap:var(--space-3);margin-block-start:var(--space-6)}
+.contact-channel{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-3) var(--space-4);border:var(--border-width) solid var(--border);border-radius:var(--radius-2);background:var(--surface-card);transition:border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
+.contact-channel:hover{border-color:var(--accent);background:var(--surface-tint)}
+.contact-channel__icon{display:grid;flex:none;place-items:center;inline-size:var(--size-channel-icon);block-size:var(--size-channel-icon);border-radius:var(--radius-2);background:var(--grad-brand);color:var(--on-accent)}
+.contact-channel--telegram .contact-channel__icon{background:var(--telegram)}
+.contact-channel--whatsapp .contact-channel__icon{background:var(--whatsapp);color:var(--navy-900)}
+.contact-channel__body{display:grid;flex:1;min-inline-size:0}
+.contact-channel__name{font-weight:var(--weight-bold);line-height:var(--leading-snug);color:var(--ink-strong)}
+.contact-channel__sub{overflow-wrap:break-word;font-size:var(--text-2);line-height:var(--leading-snug);color:var(--ink-muted)}
+.contact-channel__go{display:grid;color:var(--ink-muted);transition:translate var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out)}
+.contact-channel:hover .contact-channel__go{color:var(--accent);translate:var(--space-1) 0}
+.contact-modal__foot{margin-block-start:var(--space-5);font-size:var(--text-1);line-height:var(--leading-snug);text-align:center;color:var(--ink-muted)}
+@media (min-width:35em){.contact-modal__card{padding:var(--space-12) var(--space-8) var(--space-8)}}
+
+/* ============================================================
+   CHAT WIDGET
+   ============================================================ */
+.chat-widget{position:fixed;inset-block-end:var(--space-5);inset-inline-end:var(--space-5);z-index:var(--z-float);display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-3)}
+.chat-toggle{position:relative;display:grid;place-items:center;inline-size:calc(var(--size-icon-circle-lg) * 1.5);block-size:calc(var(--size-icon-circle-lg) * 1.5);padding:0;border:0;border-radius:50%;background:var(--grad-brand);color:var(--on-accent);box-shadow:var(--shadow-float);cursor:pointer;transition:transform var(--dur-1) var(--ease-out)}
+.chat-toggle:hover{transform:translateY(-2px) scale(1.04)}
+.chat-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.chat-toggle__icon{position:absolute;inset:0;display:grid;place-items:center;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.chat-toggle__icon--close{opacity:0;transform:rotate(-90deg) scale(.6)}
+.chat-widget[data-open=true] .chat-toggle__icon--chat{opacity:0;transform:rotate(90deg) scale(.6)}
+.chat-widget[data-open=true] .chat-toggle__icon--close{opacity:1;transform:none}
+.chat-options{display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2);margin:0;padding:0;list-style:none;pointer-events:none}
+.chat-widget[data-open=true] .chat-options{pointer-events:auto}
+.chat-option{opacity:0;transform:translateY(var(--space-3)) scale(.92);transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.chat-widget[data-open=true] .chat-option{opacity:1;transform:none;transition-delay:calc(var(--chat-i,0) * 60ms)}
+.chat-option__link{display:inline-flex;align-items:center;gap:var(--space-3);padding:var(--space-1) var(--space-1) var(--space-1) var(--space-4);border:var(--border-width) solid var(--border);border-radius:var(--radius-pill);background:var(--surface-card);color:var(--ink-strong);box-shadow:var(--shadow-pill);text-decoration:none}
+.chat-option__link:hover{border-color:var(--accent)}
+.chat-option__icon{display:grid;place-items:center;inline-size:var(--size-icon-circle);block-size:var(--size-icon-circle);border-radius:var(--radius-round);color:#fff}
+.chat-option--telegram .chat-option__icon{background:var(--telegram)}
+.chat-option--whatsapp .chat-option__icon{background:var(--whatsapp);color:var(--navy-900)}
+.chat-option--contact .chat-option__icon{background:var(--grad-brand)}
+
+/* Misc */
+.tag{display:inline-block;padding:var(--space-1) var(--space-4);border-radius:var(--radius-1);background:var(--badge-bg);color:var(--badge-ink);font-size:var(--text-1);font-weight:var(--weight-bold);letter-spacing:var(--tracking-wide);text-transform:uppercase}
+.no-js .primary-nav{display:none}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- SVG SPRITE -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" class="grad-stop-from"/>
+      <stop offset="1" class="grad-stop-to"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M9.5 16.5 5 12l1.5-1.5L9.5 13.5 17.5 5.5 19 7z"/></symbol>
+  <symbol id="i-check-line" viewBox="0 0 24 24"><path d="m5 12 5 5L20 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10.5H13z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 4l7 8h-4v8h-6v-8H5z" fill="currentColor"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 20l-7-8h4V4h6v8h4z" fill="currentColor"/></symbol>
+  <symbol id="i-wait" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10V6h-2v7l5 3 1-1.7-4-2.3z" fill="currentColor"/></symbol>
+  <symbol id="i-candle" viewBox="0 0 24 24"><path d="M7 3v3M7 18v3M17 6v3M17 15v3M4 6h6v12H4zM14 9h6v6h-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M3 11 21 3l-8 18-2-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M21.5 4.3 3.3 11.2c-1 .4-1 1.8.1 2.1l4.4 1.4 1.7 5.2c.3.9 1.4 1.1 2 .4l2.4-2.5 4.5 3.3c.8.6 1.9.1 2.1-.9L23 5.5c.2-1-.7-1.7-1.5-1.2z" fill="currentColor"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l.8-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.4z" fill="currentColor"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3 7 9 6 9-6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</svg>
+
+<!-- HEADER -->
+<header class="site-header" id="top">
+  <div class="shell">
+    <div class="site-header__bar">
+      <a class="brand" href="/" aria-label="Auto Trading Bots — home">
+        <span class="brand__logo">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 18l5-7 4 4 5-9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="brand__name">Auto Trading Bots</span>
+        </span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <ul class="primary-nav__list">
+          <li class="primary-nav__item">
+            <button class="primary-nav__link" type="button" aria-expanded="false" aria-controls="menu-bots">
+              Bots
+              <svg class="primary-nav__caret" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+            <div class="nav-menu" id="menu-bots" role="region" aria-label="Bots">
+              <ul>
+                <li><a class="menu-list__link" href="/smc-signal-ai-bot"><span class="menu-list__bullet"></span><span>SMC Signal AI Bot</span></a></li>
+                <li><a class="menu-list__link" href="/quotex-signal-ai-bot"><span class="menu-list__bullet"></span><span>Quotex Signal AI Bot</span></a></li>
+                <li><a class="menu-list__link" href="/pocket-option-signal-ai-bot"><span class="menu-list__bullet"></span><span>Pocket Option Signal AI Bot</span></a></li>
+                <li><a class="menu-list__link" href="/iq-option-signal-ai-bot"><span class="menu-list__bullet"></span><span>IQ Option Signal AI Bot</span></a></li>
+                <li><a class="menu-list__link" href="/olymp-trade-signal-ai-bot"><span class="menu-list__bullet"></span><span>Olymp Trade Signal AI Bot</span></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="primary-nav__item">
+            <button class="primary-nav__link" type="button" aria-expanded="false" aria-controls="menu-brokers">
+              Brokers
+              <svg class="primary-nav__caret" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+            <div class="nav-menu" id="menu-brokers" role="region" aria-label="Brokers">
+              <ul>
+                <li><a class="menu-list__link" href="/pocket-option"><span class="menu-list__bullet"></span><span>Pocket Option</span></a></li>
+                <li><a class="menu-list__link" href="/quotex"><span class="menu-list__bullet"></span><span>Quotex</span></a></li>
+                <li><a class="menu-list__link" href="/iq-option"><span class="menu-list__bullet"></span><span>IQ Option</span></a></li>
+                <li><a class="menu-list__link" href="/olymp-trade"><span class="menu-list__bullet"></span><span>Olymp Trade</span></a></li>
+                <li><a class="menu-list__link" href="/binomo"><span class="menu-list__bullet"></span><span>Binomo</span></a></li>
+                <li><a class="menu-list__link" href="/exnova"><span class="menu-list__bullet"></span><span>Exnova</span></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="primary-nav__item">
+            <button class="primary-nav__link" type="button" aria-expanded="false" aria-controls="menu-learn">
+              Learn
+              <svg class="primary-nav__caret" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+            <div class="nav-menu" id="menu-learn" role="region" aria-label="Learn">
+              <ul>
+                <li><a class="menu-list__link" href="/academy"><span class="menu-list__bullet"></span><span>Academy</span></a></li>
+                <li><a class="menu-list__link" href="/blog"><span class="menu-list__bullet"></span><span>Blog</span></a></li>
+                <li><a class="menu-list__link" href="/risk-warning"><span class="menu-list__bullet"></span><span>Risk warning</span></a></li>
+                <li><a class="menu-list__link" href="/faq"><span class="menu-list__bullet"></span><span>FAQ</span></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="primary-nav__item">
+            <a class="primary-nav__link" href="/pricing">Pricing</a>
+          </li>
+          <li class="primary-nav__item">
+            <a class="primary-nav__link" href="/contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="site-header__tools">
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch to dark theme" data-theme-toggle>
+          <svg class="icon theme-toggle__moon" aria-hidden="true"><use href="#i-moon"/></svg>
+          <svg class="icon theme-toggle__sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        </button>
+        <button class="icon-button nav-toggle" type="button" aria-label="Open menu" aria-controls="nav-drawer" data-nav-open>
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE DRAWER -->
+<dialog class="nav-drawer" id="nav-drawer" aria-label="Site menu">
+  <div class="nav-drawer__head">
+    <a class="brand" href="/" aria-label="Auto Trading Bots — home">
+      <span class="brand__logo">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 18l5-7 4 4 5-9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand__name">Auto Trading Bots</span>
+      </span>
+    </a>
+    <button class="icon-button" type="button" aria-label="Close menu" data-nav-close>
+      <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+  </div>
+  <ul class="nav-drawer__list">
+    <li><a class="nav-drawer__link" href="/smc-signal-ai-bot" aria-current="page">SMC Signal AI Bot</a></li>
+    <li><a class="nav-drawer__link" href="/quotex-signal-ai-bot">Quotex Signal AI Bot</a></li>
+    <li><a class="nav-drawer__link" href="/pocket-option-signal-ai-bot">Pocket Option Signal AI Bot</a></li>
+    <li><a class="nav-drawer__link" href="/iq-option-signal-ai-bot">IQ Option Signal AI Bot</a></li>
+    <li><a class="nav-drawer__link" href="/brokers">Brokers</a></li>
+    <li><a class="nav-drawer__link" href="/pricing">Pricing</a></li>
+    <li><a class="nav-drawer__link" href="/faq">FAQ</a></li>
+    <li><a class="nav-drawer__link" href="/contact">Contact</a></li>
+  </ul>
+</dialog>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- BREADCRUMBS -->
+  <div class="shell">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol class="crumbs__list">
+        <li><a href="/">Auto Trading Bots</a></li>
+        <li><span aria-current="page">SMC Signal AI Bot</span></li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="shell">
+      <div class="lp-hero__inner">
+        <div class="lp-hero__copy">
+          <p class="lp-hero__eyebrow">Smart money concepts · Binary options</p>
+          <h1 class="lp-hero__title">
+            <span class="lp-hero__accent">SMC Signal AI Bot: <span class="text-accent">CALL, PUT or WAIT</span> on every candle</span>
+          </h1>
+          <p class="lp-hero__lead">
+            Set the broker, market, pair and expiry. Tap once. The bot answers CALL, PUT or WAIT for that candle, with an agreement meter, an entry time and the close — to the second.
+          </p>
+
+          <div class="lp-hero__features">
+            <ul class="checklist">
+              <li class="checklist__item"><svg class="checklist__icon" aria-hidden="true"><use href="#i-check"/></svg>CALL, PUT or WAIT on one card</li>
+              <li class="checklist__item"><svg class="checklist__icon" aria-hidden="true"><use href="#i-check"/></svg>Entry time and close, to the second</li>
+              <li class="checklist__item"><svg class="checklist__icon" aria-hidden="true"><use href="#i-check"/></svg>Agreement meter on every read</li>
+              <li class="checklist__item"><svg class="checklist__icon" aria-hidden="true"><use href="#i-check"/></svg>No text box, no command to learn</li>
+            </ul>
+          </div>
+
+          <div class="lp-hero__actions">
+            <a class="btn" href="#get-access" data-contact>
+              Get free access
+              <span class="btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </a>
+            <a class="text-link" href="#how-it-works">
+              See how a read works
+              <svg class="text-link__icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
+            </a>
+          </div>
+
+          <ul class="lp-hero__proof">
+            <li><svg class="lp-hero__proof-icon" aria-hidden="true"><use href="#i-check"/></svg>9 brokers supported</li>
+            <li><svg class="lp-hero__proof-icon" aria-hidden="true"><use href="#i-check"/></svg>Works on OTC at the weekend</li>
+            <li><svg class="lp-hero__proof-icon" aria-hidden="true"><use href="#i-check"/></svg>Never holds your money</li>
+          </ul>
+        </div>
+
+        <div class="lp-hero__stage lp-hero__stage--app">
+          <span class="lp-hero__block" aria-hidden="true">
+            <svg class="deco-arcs" viewBox="0 0 400 400" preserveAspectRatio="none"><g fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="330" cy="70" r="90"/><circle cx="330" cy="70" r="140"/><circle cx="330" cy="70" r="190"/></g></svg>
+          </span>
+
+          <!-- APP MOCKUP -->
+          <div class="sig-app" role="region" aria-label="SMC Signal AI Bot demo">
+            <div class="sig-app__head">
+              <div class="sig-app__brand">
+                <span class="sig-app__logo" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M3 18l5-7 4 4 5-9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <div>
+                  <p class="sig-app__title">SMC Signal AI Bot</p>
+                  <p class="sig-app__sub">One card · one answer</p>
+                </div>
+              </div>
+              <span class="sig-app__live"><span class="sig-app__live-dot" aria-hidden="true"></span>Live</span>
+            </div>
+
+            <div class="sig-app__fields">
+              <label class="sig-app__field">
+                <span class="sig-app__label">Broker</span>
+                <select class="sig-app__select" id="sig-broker" aria-label="Broker">
+                  <option>Pocket Option</option>
+                  <option>Quotex</option>
+                  <option>IQ Option</option>
+                  <option>Olymp Trade</option>
+                  <option>Binomo</option>
+                  <option>Exnova</option>
+                  <option>Bubinga</option>
+                  <option>Deriv</option>
+                  <option>Alpari</option>
+                </select>
+              </label>
+              <label class="sig-app__field">
+                <span class="sig-app__label">Market</span>
+                <select class="sig-app__select" id="sig-market" aria-label="Market">
+                  <option>OTC</option>
+                  <option>Forex</option>
+                  <option>Crypto</option>
+                  <option>Stocks</option>
+                  <option>Commodities</option>
+                  <option>Indices</option>
+                </select>
+              </label>
+              <label class="sig-app__field sig-app__field--wide">
+                <span class="sig-app__label">Pair</span>
+                <select class="sig-app__select" id="sig-pair" aria-label="Pair">
+                  <option>EUR/USD</option>
+                  <option>GBP/USD</option>
+                  <option>USD/JPY</option>
+                  <option>USD/CAD</option>
+                  <option>AUD/USD</option>
+                  <option>EUR/GBP</option>
+                  <option>BTC/USD</option>
+                  <option>ETH/USD</option>
+                  <option>Gold</option>
+                </select>
+              </label>
+            </div>
+
+            <div>
+              <span class="sig-app__label" style="display:block;margin-block-end:var(--space-2);">Expiry</span>
+              <div class="sig-app__tfs" role="group" aria-label="Expiry timeframe">
+                <button class="sig-app__tf" type="button" aria-pressed="false" data-tf="5m">5m</button>
+                <button class="sig-app__tf" type="button" aria-pressed="false" data-tf="15m">15m</button>
+                <button class="sig-app__tf" type="button" aria-pressed="true" data-tf="30m">30m</button>
+                <button class="sig-app__tf" type="button" aria-pressed="false" data-tf="1h">1h</button>
+                <button class="sig-app__tf" type="button" aria-pressed="false" data-tf="4h">4h</button>
+                <button class="sig-app__tf" type="button" aria-pressed="false" data-tf="1d">1d</button>
+              </div>
+            </div>
+
+            <button class="sig-app__go" type="button" id="sig-go">
+              <svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg>
+              Get signal
+            </button>
+
+            <!-- SIGNAL CARD -->
+            <div class="sig-card" id="sig-card" aria-live="polite">
+              <div class="sig-card__top">
+                <span class="sig-card__label">Signal</span>
+                <span class="sig-card__chip" id="sig-chip">Pocket Option · OTC · EUR/USD</span>
+              </div>
+
+              <div class="sig-card__answer is-wait" id="sig-answer">
+                <span class="sig-card__glyph" aria-hidden="true">
+                  <svg class="icon" id="sig-glyph"><use href="#i-wait"/></svg>
+                </span>
+                <div>
+                  <p class="sig-card__word" id="sig-word">WAIT</p>
+                  <p class="sig-card__purpose" id="sig-purpose">Trend and momentum disagree — skip this candle.</p>
+                </div>
+              </div>
+
+              <div class="sig-card__meter">
+                <div class="sig-card__meter-head"><span>Agreement</span><b id="sig-agreement">—</b></div>
+                <div class="sig-card__meter-track"><div class="sig-card__meter-fill" id="sig-fill"></div></div>
+              </div>
+
+              <dl class="sig-card__facts">
+                <div class="sig-card__fact">
+                  <dt>Entry</dt>
+                  <dd id="sig-entry">—:—:—</dd>
+                </div>
+                <div class="sig-card__fact">
+                  <dt>Close</dt>
+                  <dd id="sig-close">—:—:—</dd>
+                </div>
+              </dl>
+
+              <p class="sig-card__note">A signal is not advice. Check it on your broker's chart.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE BAND -->
+  <section class="band feature-band" aria-labelledby="band-title">
+    <a class="feature-band__chip" href="#how-it-works">
+      <span class="feature-band__chip-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-candle"/></svg></span>
+      SMC Signal AI Bot
+    </a>
+    <h2 class="feature-band__title" id="band-title">One card. One answer.<br>No noise.</h2>
+    <p class="feature-band__text">
+      No dashboards, no feeds, no fifteen panels to interpret. You get a read on the candle you are about to trade, and the times you need to act on it.
+    </p>
+    <div class="feature-band__actions">
+      <a class="btn btn--light" href="#get-access" data-contact>
+        Get free access
+        <span class="btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="text-link text-link--on-band" href="#pricing">
+        See pricing
+        <svg class="text-link__icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works" aria-labelledby="how-title">
+    <div class="shell">
+      <div class="split-head">
+        <div>
+          <p class="section-head__eyebrow" style="justify-content:flex-start;">How a read works</p>
+          <h2 class="section-head__title" id="how-title" style="margin-block-start:var(--space-3);text-align:start;">Four steps, a few seconds</h2>
+        </div>
+        <p class="split-head__lead">The bot reads the broker, market, pair and expiry you set, then answers for the next candle. Nothing to install, nothing to type.</p>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline__step">
+          <span class="timeline__dot" aria-hidden="true">1</span>
+          <span class="timeline__time">00:00</span>
+          <h3 class="timeline__title">Set it up</h3>
+          <p class="timeline__text">Pick your broker, market, pair and expiry from the four listboxes. No typing, no command to remember.</p>
+        </li>
+        <li class="timeline__step">
+          <span class="timeline__dot" aria-hidden="true">2</span>
+          <span class="timeline__time">00:01</span>
+          <h3 class="timeline__title">Tap Get signal</h3>
+          <p class="timeline__text">One key. The bot reads the current candle and lines up the three inputs behind it.</p>
+        </li>
+        <li class="timeline__step">
+          <span class="timeline__dot" aria-hidden="true">3</span>
+          <span class="timeline__time">00:02</span>
+          <h3 class="timeline__title">Read the card</h3>
+          <p class="timeline__text">CALL, PUT or WAIT, the agreement meter, the entry time and the close. All on one card.</p>
+        </li>
+        <li class="timeline__step">
+          <span class="timeline__dot" aria-hidden="true">4</span>
+          <span class="timeline__time">00:03</span>
+          <h3 class="timeline__title">Trade it on your broker</h3>
+          <p class="timeline__text">Place the trade yourself. The bot never touches your money and never holds an account.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- EXPIRIES + PRICING -->
+  <section class="section" id="pricing" aria-labelledby="pricing-title">
+    <div class="shell">
+      <div class="section-head">
+        <p class="section-head__eyebrow">Expiries &amp; plans</p>
+        <h2 class="section-head__title" id="pricing-title">Slow expiries are free. Fast ones open with a plan.</h2>
+      </div>
+
+      <div class="scale">
+        <div class="scale__track">
+          <div class="scale__bracket scale__bracket--locked">
+            Faster expiries
+            <span>Unlocked with free access through a partner broker, or a paid plan.</span>
+          </div>
+          <div class="scale__bracket scale__bracket--free">
+            Free
+            <span>4h &amp; 1d (1h on IQ Option, 23h on Olymp Trade).</span>
+          </div>
+
+          <ul class="scale__cells">
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>5s</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>15s</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>30s</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>1m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>2m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>3m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>5m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>10m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>15m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>30m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>45m</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>1h</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>2h</li>
+            <li class="scale__cell"><svg class="scale__lock" aria-hidden="true"><use href="#i-lock"/></svg>3h</li>
+            <li class="scale__cell scale__cell--free">4h</li>
+            <li class="scale__cell scale__cell--free">1d</li>
+          </ul>
+        </div>
+
+        <ul class="scale__options">
+          <li class="option option--featured">
+            <p class="option__eyebrow">Free access</p>
+            <h3 class="option__title">With a partner broker account</h3>
+            <p class="option__text">Open an account through one of our partner brokers, and every expiry opens at no cost.</p>
+            <p class="option__price">$0 <small>/ forever</small></p>
+            <ul class="option__list">
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>All expiries unlocked</li>
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>All brokers, markets and pairs</li>
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>No card required</li>
+            </ul>
+            <a class="btn" href="#get-access" data-contact>
+              Get free access
+              <span class="btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </a>
+          </li>
+
+          <li class="option">
+            <p class="option__eyebrow">Monthly</p>
+            <h3 class="option__title">$49 / month</h3>
+            <p class="option__text">Every expiry, every broker, every pair. Cancel any time.</p>
+            <p class="option__price">$49 <small>/ month</small></p>
+            <ul class="option__list">
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>All expiries unlocked</li>
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>No broker account required</li>
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>Cancel any time</li>
+            </ul>
+            <a class="btn btn--outline btn--solo" href="#get-access" data-contact>Choose monthly</a>
+          </li>
+
+          <li class="option">
+            <p class="option__eyebrow">Lifetime</p>
+            <h3 class="option__title">$199 once</h3>
+            <p class="option__text">Pay once. Every expiry, forever. Same rules as monthly, no renewals.</p>
+            <p class="option__price">$199 <small>/ once</small></p>
+            <ul class="option__list">
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>All expiries unlocked</li>
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>No renewals</li>
+              <li><svg class="option__check" aria-hidden="true"><use href="#i-check-line"/></svg>No broker account required</li>
+            </ul>
+            <a class="btn btn--outline btn--solo" href="#get-access" data-contact>Choose lifetime</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- MARKETS -->
+      <div class="markets">
+        <h3 class="footer-col__title">Markets the bot reads</h3>
+        <p class="split-head__lead" style="margin-block-start:var(--space-2);font-size:var(--text-3);">OTC, forex, crypto, stocks, commodities and indices. The bot keeps OTC chosen at the weekend, when the real market is closed.</p>
+        <ul class="markets__list">
+          <li>OTC</li>
+          <li>Forex</li>
+          <li>Crypto</li>
+          <li>Stocks</li>
+          <li>Commodities</li>
+          <li>Indices</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="shell">
+      <div class="faq-split">
+        <aside class="faq-split__aside">
+          <div class="section-head section-head--start" style="margin-inline:0;text-align:start;">
+            <p class="section-head__eyebrow">Questions</p>
+            <h2 class="section-head__title" id="faq-title">The short answers</h2>
+          </div>
+          <div class="help-card">
+            <span class="help-card__icon" aria-hidden="true"><svg class="icon" style="color:#fff"><use href="#i-chat"/></svg></span>
+            <h3 class="help-card__title">Still stuck?</h3>
+            <p class="help-card__text">Message us on Telegram or WhatsApp — we answer in plain language, and we don't sell signals on the side.</p>
+            <a class="btn btn--light" href="#get-access" data-contact>
+              Ask us
+              <span class="btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+            </a>
+          </div>
+        </aside>
+
+        <div>
+          <ul class="faq__list">
+            <li>
+              <details class="faq__item" open>
+                <summary class="faq__question">
+                  <span class="faq__num">01</span>
+                  <span class="faq__q">What is SMC Signal AI Bot?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>A signal bot for binary options. You set a broker, a market, a pair and an expiry, tap Get signal, and one card answers CALL, PUT or WAIT for that candle, with an agreement meter, the entry time and the close. It is not a broker, and it never holds your money.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">02</span>
+                  <span class="faq__q">What does SMC stand for?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>Smart money concepts: a way of reading a chart through liquidity, order blocks and shifts in structure. The name tells you who the bot is for. The bot itself does not mark any of those levels on your chart.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">03</span>
+                  <span class="faq__q">Which brokers does it work with?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>Pocket Option, Quotex, IQ Option, Olymp Trade, Binomo, Exnova, Bubinga, Deriv and Alpari. Set yours in the Broker listbox and every signal carries its name.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">04</span>
+                  <span class="faq__q">Do I have to type anything?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>No. Every answer is a listbox or a key: the broker, the market, the pair and the expiry. There is no text box and no command to remember.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">05</span>
+                  <span class="faq__q">What do CALL, PUT and WAIT mean?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>CALL means the read expects the candle to close above its open, so buy up. PUT expects it below, so buy down. WAIT means trend and momentum disagree, and skipping the candle is the answer.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">06</span>
+                  <span class="faq__q">What is the agreement meter?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>How firmly the three inputs behind a signal line up. A fuller meter is a cleaner read. It is not the chance the trade wins, so size every trade as if it could lose.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">07</span>
+                  <span class="faq__q">Why does the card sometimes wait before the entry?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>On expiries under an hour, when less than half of the current candle is left, the bot reads the next candle and counts down to its open. Joining a candle half way is a different trade from the one that was read.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">08</span>
+                  <span class="faq__q">Can I use it at the weekend?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>Yes, on OTC. The real market closes from Friday 21:00 to Sunday 21:00 UTC, so the bot keeps OTC chosen until the market reopens.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">09</span>
+                  <span class="faq__q">Which expiries are free?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>4h and 1d on most brokers, 1h on IQ Option and 23h on Olymp Trade. The faster ones open with free access through a partner broker, or a $49 monthly or $199 lifetime plan.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">10</span>
+                  <span class="faq__q">Does it publish a win rate?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>No. The bot never sees how your trade closed, and results change with the pair, the expiry and the market. Check each signal on your broker's chart and keep your own record.</p></div>
+              </details>
+            </li>
+            <li>
+              <details class="faq__item">
+                <summary class="faq__question">
+                  <span class="faq__num">11</span>
+                  <span class="faq__q">Is it risky?</span>
+                  <span class="faq__toggle"><svg class="faq__caret" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </summary>
+                <div class="faq__answer"><p>Yes. A short-expiry trade can lose the whole stake, and a signal is not advice. Only trade money you can afford to lose, and read the <a href="/risk-warning">Risk warning</a>.</p></div>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="risk-line">
+        A signal is not advice. Binary options carry risk and you can lose your whole stake. Only trade money you can afford to lose. Read the <a href="/risk-warning">Risk warning</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" id="get-access">
+  <div class="newsletter">
+    <svg class="deco-arcs" viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="520" cy="60" r="120"/><circle cx="520" cy="60" r="180"/><circle cx="520" cy="60" r="240"/></g></svg>
+    <div>
+      <h2 class="newsletter__title">Get free access</h2>
+      <p class="newsletter__text">Tell us where to send the invite. It opens the bot, all expiries, and a short note on how to read a card.</p>
+    </div>
+    <form class="newsletter-form" id="access-form" novalidate>
+      <label class="newsletter-form__label" for="access-email">Email address</label>
+      <div class="newsletter-form__row">
+        <input class="newsletter-form__input" id="access-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="access-error">
+        <button class="btn" type="submit">
+          Send my invite
+          <span class="btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </button>
+      </div>
+      <p class="field__error" id="access-error" hidden>Enter a valid email address.</p>
+      <p class="form-status" role="status" aria-live="polite" id="access-status"></p>
+    </form>
+  </div>
+
+  <div class="site-footer__body">
+    <div class="site-footer__grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="Auto Trading Bots — home">
+          <span class="brand__logo">
+            <span class="brand__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 18l5-7 4 4 5-9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="brand__name">Auto Trading Bots</span>
+          </span>
+        </a>
+        <p class="footer-brand__about">Signals and auto-trading for binary options. We build the bot. Your broker holds the money. You make the call.</p>
+        <address class="footer-brand__address">
+          Joory Street, Jumeirah Village Triangle,<br>District 3, Dubai, AE
+        </address>
+        <dl class="footer-brand__contact">
+          <dt>Email</dt>
+          <dd><a href="mailto:info@autotradingbots.ai">info@autotradingbots.ai</a></dd>
+          <dt>Phone</dt>
+          <dd><a href="tel:+971527805973">+971 52 780 5973</a></dd>
+        </dl>
+        <ul class="social" aria-label="Social profiles">
+          <li><a class="social__link" href="https://t.me/AutoTradingBotsAI" aria-label="Telegram"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg></a></li>
+          <li><a class="social__link" href="https://wa.me/971527805973" aria-label="WhatsApp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></a></li>
+          <li><a class="social__link" href="https://www.youtube.com/@AutoTradingBotsAI" aria-label="YouTube"><svg class="icon" aria-hidden="true"><use href="#i-candle"/></svg></a></li>
+          <li><a class="social__link" href="https://x.com/autotradingbota" aria-label="X"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Bots</h3>
+        <ul class="footer-col__list">
+          <li><a class="footer-col__link" href="/smc-signal-ai-bot">SMC Signal AI Bot</a></li>
+          <li><a class="footer-col__link" href="/quotex-signal-ai-bot">Quotex Signal AI Bot</a></li>
+          <li><a class="footer-col__link" href="/pocket-option-signal-ai-bot">Pocket Option Signal AI Bot</a></li>
+          <li><a class="footer-col__link" href="/iq-option-signal-ai-bot">IQ Option Signal AI Bot</a></li>
+          <li><a class="footer-col__link" href="/olymp-trade-signal-ai-bot">Olymp Trade Signal AI Bot</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Brokers</h3>
+        <ul class="footer-col__list">
+          <li><a class="footer-col__link" href="/pocket-option">Pocket Option</a></li>
+          <li><a class="footer-col__link" href="/quotex">Quotex</a></li>
+          <li><a class="footer-col__link" href="/iq-option">IQ Option</a></li>
+          <li><a class="footer-col__link" href="/olymp-trade">Olymp Trade</a></li>
+          <li><a class="footer-col__link" href="/binomo">Binomo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Learn</h3>
+        <ul class="footer-col__list">
+          <li><a class="footer-col__link" href="/academy">Academy</a></li>
+          <li><a class="footer-col__link" href="/blog">Blog</a></li>
+          <li><a class="footer-col__link" href="/faq">FAQ</a></li>
+          <li><a class="footer-col__link" href="/risk-warning">Risk warning</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Company</h3>
+        <ul class="footer-col__list">
+          <li><a class="footer-col__link" href="/about">About</a></li>
+          <li><a class="footer-col__link" href="/pricing">Pricing</a></li>
+          <li><a class="footer-col__link" href="/contact">Contact</a></li>
+          <li><a class="footer-col__link" href="/terms">Terms</a></li>
+          <li><a class="footer-col__link" href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-company">
+      <ul class="footer-company__list">
+        <li><a class="footer-company__link" href="/terms">Terms of service</a></li>
+        <li><a class="footer-company__link" href="/privacy">Privacy policy</a></li>
+        <li><a class="footer-company__link" href="/refund">Refund policy</a></li>
+        <li><a class="footer-company__link" href="/risk-warning">Risk warning</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__risk">
+      <p><strong>Risk warning.</strong> Binary options are risky. A short-expiry trade can lose the whole stake. A signal is not advice, and past performance does not predict future results. The bot never sees how your trade closed and never publishes a win rate. Only trade money you can afford to lose. <a href="/risk-warning">Read the full risk warning</a>.</p>
+    </div>
+  </div>
+
+  <div class="site-footer__bar">
+    <p>© <span id="year">2025</span> Auto Trading Bots. All rights reserved.</p>
+    <div class="availability">
+      <span>English</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CONTACT MODAL -->
+<dialog class="contact-modal" id="contact-modal" aria-labelledby="contact-title">
+  <div class="contact-modal__card">
+    <button class="icon-button contact-modal__close" type="button" aria-label="Close" data-contact-close>
+      <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+    <div class="contact-modal__head">
+      <span class="contact-modal__mark" aria-hidden="true">
+        <svg class="icon" style="color:#fff"><use href="#i-bolt"/></svg>
+      </span>
+      <span class="contact-modal__eyebrow">Get access</span>
+      <h2 class="contact-modal__title" id="contact-title">Open the bot</h2>
+      <p class="contact-modal__text">Message us on Telegram or WhatsApp and we'll send the invite. No card, no account needed for the free path.</p>
+    </div>
+    <div class="contact-channels">
+      <a class="contact-channel contact-channel--telegram" href="https://t.me/AutoTradingBotsAI" target="_blank" rel="noopener">
+        <span class="contact-channel__icon"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg></span>
+        <span class="contact-channel__body">
+          <span class="contact-channel__name">Telegram</span>
+          <span class="contact-channel__sub">@AutoTradingBotsAI</span>
+        </span>
+        <span class="contact-channel__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="contact-channel contact-channel--whatsapp" href="https://wa.me/971527805973" target="_blank" rel="noopener">
+        <span class="contact-channel__icon"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+        <span class="contact-channel__body">
+          <span class="contact-channel__name">WhatsApp</span>
+          <span class="contact-channel__sub">+971 52 780 5973</span>
+        </span>
+        <span class="contact-channel__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="contact-channel" href="mailto:info@autotradingbots.ai">
+        <span class="contact-channel__icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+        <span class="contact-channel__body">
+          <span class="contact-channel__name">Email</span>
+          <span class="contact-channel__sub">info@autotradingbots.ai</span>
+        </span>
+        <span class="contact-channel__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+    <p class="contact-modal__foot">A signal is not advice. Trade money you can afford to lose.</p>
+  </div>
+</dialog>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget" data-open="false" id="chat-widget">
+  <ul class="chat-options" aria-label="Chat channels">
+    <li class="chat-option" style="--chat-i:0">
+      <a class="chat-option__link" href="https://t.me/AutoTradingBotsAI" target="_blank" rel="noopener">
+        <span class="chat-option__icon chat-option--telegram"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg></span>
+        Telegram
+      </a>
+    </li>
+    <li class="chat-option" style="--chat-i:1">
+      <a class="chat-option__link" href="https://wa.me/971527805973" target="_blank" rel="noopener">
+        <span class="chat-option__icon chat-option--whatsapp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+        WhatsApp
+      </a>
+    </li>
+    <li class="chat-option" style="--chat-i:2">
+      <button class="chat-option__link" type="button" data-contact style="border:0;background:var(--surface-card);cursor:pointer;font:inherit;color:var(--ink-strong);">
+        <span class="chat-option__icon chat-option--contact"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span>
+        Contact
+      </button>
+    </li>
+  </ul>
+  <button class="chat-toggle" type="button" aria-label="Open chat options" aria-expanded="false" id="chat-toggle">
+    <span class="chat-toggle__icon chat-toggle__icon--chat"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span>
+    <span class="chat-toggle__icon chat-toggle__icon--close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></span>
+  </button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  document.documentElement.classList.remove('no-js');
+
+  /* ---------- Theme ---------- */
+  var root = document.documentElement;
+  var toggle = document.querySelector('[data-theme-toggle]');
+  var stored = null;
+  try { stored = localStorage.getItem('atb-theme'); } catch (e) {}
+  if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    root.setAttribute('data-theme', 'dark');
+    if (toggle) toggle.setAttribute('aria-label', 'Switch to light theme');
+  }
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var isDark = root.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        root.removeAttribute('data-theme');
+        toggle.setAttribute('aria-label', 'Switch to dark theme');
+      } else {
+        root.setAttribute('data-theme', 'dark');
+        toggle.setAttribute('aria-label', 'Switch to light theme');
+      }
+      try { localStorage.setItem('atb-theme', isDark ? 'light' : 'dark'); } catch (e) {}
+    });
+  }
+
+  /* ---------- Mobile drawer ---------- */
+  var drawer = document.getElementById('nav-drawer');
+  document.querySelectorAll('[data-nav-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (drawer && drawer.showModal) drawer.showModal();
+    });
+  });
+  document.querySelectorAll('[data-nav-close]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (drawer) drawer.close();
+    });
+  });
+  if (drawer) {
+    drawer.addEventListener('click', function (e) {
+      if (e.target === drawer) drawer.close();
+    });
+  }
+
+  /* ---------- Primary nav dropdowns ---------- */
+  var items = document.querySelectorAll('.primary-nav__item');
+  items.forEach(function (item) {
+    var btn = item.querySelector('.primary-nav__link[aria-controls]');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var open = item.hasAttribute('data-open');
+      items.forEach(function (other) {
+        other.removeAttribute('data-open');
+        var b = other.querySelector('.primary-nav__link[aria-controls]');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        item.setAttribute('data-open', '');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.primary-nav__item')) {
+      items.forEach(function (item) {
+        item.removeAttribute('data-open');
+        var b = item.querySelector('.primary-nav__link[aria-controls]');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      items.forEach(function (item) {
+        item.removeAttribute('data-open');
+        var b = item.querySelector('.primary-nav__link[aria-controls]');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  /* ---------- Contact modal ---------- */
+  var modal = document.getElementById('contact-modal');
+  document.querySelectorAll('[data-contact]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (modal && modal.showModal) modal.showModal();
+    });
+  });
+  document.querySelectorAll('[data-contact-close]').forEach(function (btn) {
+    btn.addEventListener('click', function () { if (modal) modal.close(); });
+  });
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) modal.close();
+    });
+  }
+
+  /* ---------- Chat widget ---------- */
+  var chat = document.getElementById('chat-widget');
+  var chatToggle = document.getElementById('chat-toggle');
+  if (chat && chatToggle) {
+    chatToggle.addEventListener('click', function () {
+      var open = chat.getAttribute('data-open') === 'true';
+      chat.setAttribute('data-open', open ? 'false' : 'true');
+      chatToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      chatToggle.setAttribute('aria-label', open ? 'Open chat options' : 'Close chat options');
+    });
+  }
+
+  /* ---------- Newsletter form ---------- */
+  var form = document.getElementById('access-form');
+  if (form) {
+    var email = document.getElementById('access-email');
+    var error = document.getElementById('access-error');
+    var status = document.getElementById('access-status');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = (email.value || '').trim();
+      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!ok) {
+        email.setAttribute('aria-invalid', 'true');
+        error.hidden = false;
+        status.textContent = '';
+        return;
+      }
+      email.removeAttribute('aria-invalid');
+      error.hidden = true;
+      status.textContent = 'Thanks — check your inbox for the invite.';
+      form.reset();
+    });
+  }
+
+  /* ---------- Footer year ---------- */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ---------- FAQ single-open behaviour (progressive) ---------- */
+  var faqs = document.querySelectorAll('.faq__item');
+  faqs.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) {
+        faqs.forEach(function (other) {
+          if (other !== d) other.open = false;
+        });
+      }
+    });
+  });
+
+  /* ---------- SMC Signal demo ---------- */
+  var go = document.getElementById('sig-go');
+  var broker = document.getElementById('sig-broker');
+  var market = document.getElementById('sig-market');
+  var pair = document.getElementById('sig-pair');
+  var chip = document.getElementById('sig-chip');
+  var answer = document.getElementById('sig-answer');
+  var word = document.getElementById('sig-word');
+  var glyph = document.getElementById('sig-glyph');
+  var purpose = document.getElementById('sig-purpose');
+  var agreement = document.getElementById('sig-agreement');
+  var fill = document.getElementById('sig-fill');
+  var entryEl = document.getElementById('sig-entry');
+  var closeEl = document.getElementById('sig-close');
+  var card = document.getElementById('sig-card');
+  var activeTf = '30m';
+  var tfMap = { '5m': 5, '15m': 15, '30m': 30, '1h': 60, '4h': 240, '1d': 1440 };
+
+  document.querySelectorAll('.sig-app__tf').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.sig-app__tf').forEach(function (b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.setAttribute('aria-pressed', 'true');
+      activeTf = btn.getAttribute('data-tf');
+    });
+  });
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function fmt(d) {
+    return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+
+  var purposes = {
+    CALL: 'Trend and momentum agree — the read expects the candle to close above its open.',
+    PUT: 'Trend and momentum agree — the read expects the candle to close below its open.',
+    WAIT: 'Trend and momentum disagree — skipping this candle is the answer.'
+  };
+
+  if (go) {
+    go.addEventListener('click', function () {
+      var choices = ['CALL', 'PUT', 'WAIT'];
+      var pick = choices[Math.floor(Math.random() * choices.length)];
+      var pct = pick === 'WAIT'
+        ? 28 + Math.floor(Math.random() * 20)
+        : 62 + Math.floor(Math.random() * 36);
+
+      var minutes = tfMap[activeTf] || 30;
+      var now = new Date();
+      var entry = new Date(now.getTime() + 60 * 1000);
+      var close = new Date(entry.getTime() + minutes * 60 * 1000);
+
+      chip.textContent = broker.value + ' · ' + market.value + ' · ' + pair.value;
+      word.textContent = pick;
+      purpose.textContent = purposes[pick];
+      agreement.textContent = pct + '%';
+      fill.style.inlineSize = pct + '%';
+      entryEl.textContent = fmt(entry);
+      closeEl.textContent = fmt(close);
+
+      answer.classList.remove('is-wait', 'is-put');
+      if (pick === 'PUT') answer.classList.add('is-put');
+      if (pick === 'WAIT') answer.classList.add('is-wait');
+
+      var icon = pick === 'CALL' ? '#i-up' : (pick === 'PUT' ? '#i-down' : '#i-wait');
+      glyph.innerHTML = '<use href="' + icon + '"/>';
+
+      card.classList.remove('is-flash');
+      void card.offsetWidth;
+      card.classList.add('is-flash');
+      setTimeout(function () { card.classList.remove('is-flash'); }, 900);
+    });
+  }
+
+  /* Live clock in the demo (entry/close stay static after generation) */
+  function tickCard() {
+    if (!entryEl || !closeEl) return;
+    if (entryEl.textContent === '—:—:—') return;
+    /* Kept static once generated — this is a read of a specific candle. */
+  }
+  setInterval(tickCard, 1000);
+})();
+</script>
+</body>
+</html>

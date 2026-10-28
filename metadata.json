@@ -1,0 +1,6 @@
+{
+  "name": "Vixunity SMC - AI Trading Signals & Chart Analysis",
+  "description": "Smart Money Concepts & Pocket Option AI trading engine with live signals, multi-layer chart photo/video analysis, low-latency reasoning, and deep market intelligence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
